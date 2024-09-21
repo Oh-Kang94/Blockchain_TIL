@@ -9,3 +9,14 @@
     SmartContract를 직접 만들어보면서, 개념 익힘
 
 to be continued
+
+## 3. deploy to SmartContract (Node)
+
+how to install
+
+```bash
+    npm install -D hardhat
+    npm install -D ethers
+    npm install -D @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
+    npm install -D @nomiclabs/hardhat-waffle 'ethereum-waffle@^3.0.0' @nomiclabs/hardhat-ethers 'ethers@^5.0.0' @types/sinon-chai@^3.2.3
+```

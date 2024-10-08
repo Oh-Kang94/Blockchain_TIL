@@ -16,7 +16,5 @@ how to install
 
 ```bash
     npm install -D hardhat
-    npm install -D ethers
-    npm install -D @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
-    npm install -D @nomiclabs/hardhat-waffle 'ethereum-waffle@^3.0.0' @nomiclabs/hardhat-ethers 'ethers@^5.0.0' @types/sinon-chai@^3.2.3
+    npm install -D @nomicfoundation/hardhat-toolbox
 ```

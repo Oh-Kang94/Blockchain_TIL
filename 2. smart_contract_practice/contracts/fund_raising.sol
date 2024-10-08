@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 // Class 대신 contract라는 이름을 쓴다.
 contract FundRaising {
     // ## Variables
-    uint64 public targetAmount;
+    uint64 public targetAmount; // 외부에서 불러올때, Getter로 불러오기 때문에 Callable이다. 
 
     address public owner; // address는 지갑 소유자의 이더리움 지갑 주소
 
@@ -20,7 +20,7 @@ contract FundRaising {
     // 생성자에서 아무것도 정의하지 않았지만, EVM안에서 코드가 실행될때 정의될것이다.
     // ## Constructor
     constructor(uint256 _targetAmount) {
-        targetAmount = uint64(_targetAmount);
+        targetAmount = uint64(_targetAmount); 
         owner = msg.sender;
         // msg는 블록 글로벌 변수이다.
     }

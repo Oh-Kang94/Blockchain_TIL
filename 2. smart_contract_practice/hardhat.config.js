@@ -16,3 +16,17 @@ module.exports = {
     artifacts: "./artifacts"
   },
 };
+// 계좌 목록을 출력하는 태스크
+task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
+  const accounts = await hre.ethers.getSigners();
+  const provider = hre.ethers.provider;
+
+  for (const account of accounts) {
+    const balance = await provider.getBalance(account.address);
+    console.log(
+      "%s (%s ETH)",
+      account.address,
+      hre.ethers.formatEther(balance)  // 잔액을 ETH로 포맷팅
+    );
+  }
+});

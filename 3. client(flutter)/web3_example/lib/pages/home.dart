@@ -14,8 +14,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late Fundraising fundraising;
 
-  EthereumAddress? _contributor;
-  EthereumAddress? _owner;
+  EthereumAddress? _contributorAddress;
+  EthPrivateKey? _contributorPKey;
+  EthPrivateKey? _ownerPKey;
+  EthereumAddress? _ownerAddress;
   EthereumAddress? _contract;
   EtherAmount? _contributorBalance;
   EtherAmount? _ownerBalance;
@@ -25,8 +27,11 @@ class _HomeState extends State<Home> {
   void initState() {
     Web3Datasource web3 = Web3Datasource();
     fundraising = Fundraising();
-    _owner = web3.owner.address;
-    _contributor = web3.contributor.address;
+    _ownerPKey = web3.owner;
+    _contributorPKey = web3.contributor;
+
+    _ownerAddress = _ownerPKey!.address;
+    _contributorAddress = _contributorPKey!.address;
     _contract = fundraising.contractAddress;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -44,7 +49,7 @@ class _HomeState extends State<Home> {
           children: [
             const Text("Owner Address"),
             Text(
-              _owner.toString(),
+              _ownerAddress.toString(),
             ),
             _spacer,
             const Text("Contributor Balance"),
@@ -52,7 +57,7 @@ class _HomeState extends State<Home> {
             _spacer,
             const Text("Contributor Address"),
             Text(
-              _contributor.toString(),
+              _contributorAddress.toString(),
             ),
             _spacer,
             const Text("Contributor Balance"),
@@ -97,7 +102,7 @@ class _HomeState extends State<Home> {
                     },
                   ).then(
                     (value) async {
-                      value ? await _fetchData() : null;
+                      await _fetchData();
                     },
                   );
                 }
@@ -107,7 +112,42 @@ class _HomeState extends State<Home> {
             _spacer,
             ElevatedButton(
               onPressed: () async {
-                final result = await fundraising.withdrawDonations(sender: _owner);
+                final result =
+                    await fundraising.withdrawDonations(sender: _ownerPKey);
+                if (context.mounted) {
+                  showDialog<bool>(
+                    context: context,
+                    builder: (context) {
+                      return CustomDialog(
+                        result: result.$1,
+                        child: result.$1
+                            ? const Text("Success")
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text("Fail"),
+                                  Text("Reason : ${result.$2}")
+                                ],
+                              ),
+                      );
+                    },
+                  ).then(
+                    (value) async {
+                      if (value == null) {
+                        // on Dismiss the Dialog
+                        return null;
+                      }
+                      value ? await _fetchData() : null;
+                    },
+                  );
+                }
+              },
+              child: const Text('WithdrawDonations'),
+            ),
+            _spacer,
+            ElevatedButton(
+              onPressed: () async {
+                final result = await fundraising.refund();
                 if (context.mounted) {
                   showDialog(
                     context: context,
@@ -127,13 +167,18 @@ class _HomeState extends State<Home> {
                     },
                   ).then(
                     (value) async {
+                      if (value == null) {
+                        // on Dismiss the Dialog
+                        return null;
+                      }
                       value ? await _fetchData() : null;
                     },
                   );
                 }
               },
-              child: const Text('WithdrawDonations'),
+              child: const Text('Refund'),
             ),
+            _spacer,
           ],
         ),
       ),
@@ -142,8 +187,8 @@ class _HomeState extends State<Home> {
 
   Future<void> _fetchData() async {
     _contractBalance = await fundraising.checkBalance(_contract!);
-    _contributorBalance = await fundraising.checkBalance(_contributor!);
-    _ownerBalance = await fundraising.checkBalance(_owner!);
+    _contributorBalance = await fundraising.checkBalance(_contributorAddress!);
+    _ownerBalance = await fundraising.checkBalance(_ownerAddress!);
     setState(() {});
   }
 

@@ -9,6 +9,7 @@ class Fundraising {
   late DeployedContract _contract;
   late ContractFunction _balanceOf;
   late ContractFunction _withdrawDonations;
+  late ContractFunction _refund;
   late Web3Datasource _web3;
   late Web3Client _client;
 
@@ -39,7 +40,7 @@ class Fundraising {
 
     _balanceOf = _contract.function("balanceOf");
     _withdrawDonations = _contract.function("withdrawDonations");
-    // _receive = _contract.function("receive");
+    _refund = _contract.function("refund");
   }
 
   // 기부 함수
@@ -110,10 +111,10 @@ class Fundraising {
   }
 
   // WithdrawDonations
-  Future<(bool, String?)> withdrawDonations({EthereumAddress? sender}) async {
+  Future<(bool, String?)> withdrawDonations({Credentials? sender}) async {
     try {
       await _client.sendTransaction(
-        _web3.owner,
+        sender ?? _web3.owner,
         Transaction.callContract(
           contract: _contract,
           function: _withdrawDonations,
@@ -129,6 +130,38 @@ class Fundraising {
       if (e.toString().contains('Funds will only be released to the owner')) {
         log(e.toString());
         return (false, 'Funds will only be released to the owner');
+      }
+      if (e.toString().contains('The project did not reach the goal')) {
+        log(e.toString());
+        return (false, 'The project did not reach the goal');
+      }
+      log(e.toString());
+      return (false, 'Transaction failed');
+    }
+  }
+
+  // Refund
+  Future<(bool, String?)> refund({Credentials? sender}) async {
+    try {
+      await _client.sendTransaction(
+        sender ?? _web3.contributor,
+        Transaction.callContract(
+          contract: _contract,
+          function: _refund,
+          parameters: [],
+        ),
+        chainId: 31337, // 로컬 네트워크에 맞는 체인 ID 설정
+      );
+      return (true, null);
+    } catch (e) {
+      if (e.toString().contains('The campaign is not over yet')) {
+        return (false, 'The campaign is not over yet');
+      }
+      if (e.toString().contains('The campaign reached the goal')) {
+        return (false, 'The campaign reached the goal');
+      }
+      if (e.toString().contains('you did not donate to this campaign')) {
+        return (false, 'you did not donate to this campaign');
       }
       log(e.toString());
       return (false, 'Transaction failed');

@@ -1,8 +1,8 @@
 const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
 const FundRaisingModule = buildModule("FundRaisingModule", (module) => {
-    // _targetAmount를 제공 (예: 1 ETH)
-    const targetAmount = ethers.parseEther("1");
+    // _targetAmount를 제공 (예: 10 ETH)
+    const targetAmount = ethers.parseEther("10");
     // Token 컨트랙트를 Ignition을 통해 배포
     const fundRaising = module.contract("FundRaising", [targetAmount]);
 

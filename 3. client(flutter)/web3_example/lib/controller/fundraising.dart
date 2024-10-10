@@ -13,7 +13,7 @@ class Fundraising {
   late Web3Client _client;
 
   final EthereumAddress _contractAddress = EthereumAddress.fromHex(
-      "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"); // 배포된 계약의 주소를 설정
+      "0x5FbDB2315678afecb367f032d93F642f64180aa3"); // 배포된 계약의 주소를 설정
 
   Fundraising() {
     _initialize();
@@ -99,13 +99,39 @@ class Fundraising {
     return etherAmount.getValueInUnit(EtherUnit.ether).toString();
   }
 
-  // CheckBalance For Contract
-  Future<EtherAmount?> checkBalance() async {
+  // CheckBalance For Contributor
+  Future<EtherAmount?> checkBalance(EthereumAddress address) async {
     try {
-      return await _client.getBalance(_web3.contributor.address);
+      return await _client.getBalance(address);
     } catch (error) {
       log('Failed to fetch balance: $error');
     }
     return null;
+  }
+
+  // WithdrawDonations
+  Future<(bool, String?)> withdrawDonations({EthereumAddress? sender}) async {
+    try {
+      await _client.sendTransaction(
+        _web3.owner,
+        Transaction.callContract(
+          contract: _contract,
+          function: _withdrawDonations,
+          parameters: [],
+        ),
+        chainId: 31337, // 로컬 네트워크에 맞는 체인 ID 설정
+      );
+      return (true, null);
+    } catch (e) {
+      if (e.toString().contains('The campaign is not over yet')) {
+        return (false, 'The campaign is not over yet');
+      }
+      if (e.toString().contains('Funds will only be released to the owner')) {
+        log(e.toString());
+        return (false, 'Funds will only be released to the owner');
+      }
+      log(e.toString());
+      return (false, 'Transaction failed');
+    }
   }
 }

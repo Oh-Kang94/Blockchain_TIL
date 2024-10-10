@@ -45,10 +45,34 @@ module.exports = {
 
 ### run
 
+#### 1. Do the Test
+
+```bash
+    # ./test
+    npx hardhat test
+```
+
+#### 2. Make Network in LocalHost
+
+```bash
+    npx hardhat node
+```
+
+#### 3. Deploy in LocalHost
+
+```bash
+    # localhost는 "http://127.0.0.1:8545"로 config에서 지정
+    npx hardhat ignition deploy ./ignition/modules/fund_raising.js --network localhost
+```
+
 ### ETC
 
 #### 1. .gitignore
 
+<details>
+    <summary>Detail</summary>
+<pre>
+   
 ```.gitignore
     # Hardhat files
     /cache
@@ -64,4 +88,8 @@ module.exports = {
 
     # Hardhat Ignition default folder for deployments against a local node
     ignition/deployments/chain-31337
+
 ```
+
+</pre>
+</details>

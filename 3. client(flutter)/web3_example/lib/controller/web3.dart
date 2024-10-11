@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -23,4 +26,19 @@ class Web3Datasource {
   EthPrivateKey get contributor => EthPrivateKey.fromHex(_privateKey);
 
   Web3Client get client => _client;
+
+  Future<String> loadAbi(String abiPath) async {
+    // JSON 파일 읽기
+    String jsonString =
+        await rootBundle.loadString("assets/abi/FundRaising.json");
+
+    // JSON 파싱
+    final jsonMap = jsonDecode(jsonString);
+
+    // 'abi' 필드 추출
+    final abi = jsonMap['abi'];
+
+    // 'abi'를 String으로 변환하여 반환
+    return jsonEncode(abi); // JSON String으로 변환
+  }
 }

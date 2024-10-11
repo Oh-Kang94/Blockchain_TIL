@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 // Class 대신 contract라는 이름을 쓴다.
 contract FundRaising {
     // ## Variables
-    uint64 public targetAmount; // 외부에서 불러올때, Getter로 불러오기 때문에 Callable이다. 
+    uint64 public targetAmount; // 외부에서 불러올때, Getter로 불러오기 때문에 Callable이다.
 
     address public owner; // address는 지갑 소유자의 이더리움 지갑 주소
 
@@ -16,11 +16,16 @@ contract FundRaising {
 
     // `block`은 contract를 배포할때, EVM에 의해서 정의될 객체이다.
 
+    // ## Events
+    event DonationReceived(address indexed donor, uint256 amount);
+    event DonationsWithdrawn(uint256 amount);
+    event RefundProcessed(address indexed donor, uint256 amount);
+
     // 이는 프로젝트 소유자가 모금하고자 하는 금액을 명시할 수 있도록 하겠다는 뜻이다. 컨트랙을 배포할 때
     // 생성자에서 아무것도 정의하지 않았지만, EVM안에서 코드가 실행될때 정의될것이다.
     // ## Constructor
     constructor(uint256 _targetAmount) {
-        targetAmount = uint64(_targetAmount); 
+        targetAmount = uint64(_targetAmount);
         owner = msg.sender;
         // msg는 블록 글로벌 변수이다.
     }
@@ -34,6 +39,9 @@ contract FundRaising {
         require(block.timestamp < finishTime, "This campaign is over"); // 여기서 block.timestamp란 외부에서 보낸 날짜를 의미
         donations[msg.sender] += msg.value; // Hash에 저장 `+=`을 하는 이유는 추가로 보낼수 있기 때문에
         raisedAmount += msg.value;
+
+        // DonationReceived 이벤트 발생
+        emit DonationReceived(msg.sender, msg.value);
     }
 
     function withdrawDonations() external {
@@ -48,6 +56,8 @@ contract FundRaising {
         );
         require(block.timestamp > finishTime, "The campaign is not over yet");
         payable(owner).transfer(raisedAmount); // `transfer` raisedAmount를 전달하기 위함
+        
+        emit DonationsWithdrawn(raisedAmount);
     }
 
     function refund() external {
@@ -60,6 +70,7 @@ contract FundRaising {
         uint256 toRefund = donations[msg.sender];
         donations[msg.sender] = 0; // Donation 명단에서 제외
         payable(msg.sender).transfer(toRefund);
+        emit RefundProcessed(msg.sender, toRefund);
     }
 
     function balanceOf(address account) external view returns (uint256) {

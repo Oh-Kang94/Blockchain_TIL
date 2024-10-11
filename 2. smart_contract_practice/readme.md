@@ -93,3 +93,37 @@ module.exports = {
 
 </pre>
 </details>
+```
+
+#### 2. require vs Assert
+
+- 1. require : 외부 입력값에 대한 평가를 하고, 에러를 발생시킨다면 Gas를 환불한다.
+
+- 2. assert : Panic(`uint256`)의 에러를 발생시키고, 가스를 소비한다.
+
+<details>
+    <Summary>Example for use require And Assert</Summary>
+<pre>
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.5.0 <0.9.0;
+
+contract Sharer {
+    function sendHalf(address payable addr) public payable returns (uint balance) {
+        require(msg.value % 2 == 0, "Even value required.");
+        uint balanceBeforeTransfer = address(this).balance;
+        addr.transfer(msg.value / 2);
+        // Since transfer throws an exception on failure and
+        // cannot call back here, there should be no way for us to
+        // still have half of the money.
+        assert(address(this).balance == balanceBeforeTransfer - msg.value / 2);
+        return address(this).balance;
+    }
+}
+
+```
+
+</pre>
+
+</details>

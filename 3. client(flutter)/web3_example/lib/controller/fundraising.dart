@@ -17,9 +17,9 @@ class Fundraising {
       "0x5FbDB2315678afecb367f032d93F642f64180aa3"); // 배포된 계약의 주소를 설정
 
   Fundraising() {
-    _initialize();
     _web3 = Web3Datasource();
     _client = _web3.client;
+    _initialize();
   }
 
   Future<void> _initialize() async {
@@ -30,8 +30,7 @@ class Fundraising {
 
   // 스마트 컨트랙트 설정
   Future<void> _setupContract() async {
-    String abi =
-        await rootBundle.loadString("assets/abi/FundRaising.json"); // ABI를 로드
+    String abi = await _web3.loadAbi("assets/abi/FundRaising.json");
 
     _contract = DeployedContract(
       ContractAbi.fromJson(abi, "FundRaising"),
@@ -113,7 +112,7 @@ class Fundraising {
   // WithdrawDonations
   Future<(bool, String?)> withdrawDonations({Credentials? sender}) async {
     try {
-      await _client.sendTransaction(
+      final result = await _client.sendTransaction(
         sender ?? _web3.owner,
         Transaction.callContract(
           contract: _contract,
@@ -122,6 +121,7 @@ class Fundraising {
         ),
         chainId: 31337, // 로컬 네트워크에 맞는 체인 ID 설정
       );
+      log(result);
       return (true, null);
     } catch (e) {
       if (e.toString().contains('The campaign is not over yet')) {

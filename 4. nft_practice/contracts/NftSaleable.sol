@@ -186,12 +186,13 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
             msg.sender == listing.seller || msg.sender == winner,
             "only seller or winner can complete auction"
         );
+        uint256 amount;
 
         if (winner != address(0)) {
             // 최종입찰자에게 NFT 증정
             _transfer(address(this), winner, listing.tokenId);
 
-            uint256 amount = bids[listingId][winner];
+            amount = bids[listingId][winner];
 
             bids[listingId][winner] = 0;
             // 판매자에게 금액 전송
@@ -203,12 +204,7 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
 
         listing.status = AuctionStatus.DONE;
 
-        emit AuctionCompleted(
-            listingId,
-            listing.seller,
-            winner,
-            bids[listingId][winner]
-        );
+        emit AuctionCompleted(listingId, listing.seller, winner, amount);
     }
 
     // function withdrawBid(uint256 listingId) public payable nonReentrant {

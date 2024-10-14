@@ -4,7 +4,8 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
 const NftPracticeModule = buildModule("NftPracticeModule", (module) => {
-  const nftPractice = module.contract("NftPractice");
+  const deployer = module.getAccount(0);
+  const nftPractice = module.contract("NftPractice", [deployer]);
 
   return { nftPractice };
 });

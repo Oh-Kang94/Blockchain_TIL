@@ -3,10 +3,10 @@
 
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const NftPracticeModule = buildModule("NftPracticeModule", (module) => {
-  const nftPractice = module.contract("NftPractice");
+const NftSaleableModule = buildModule("NftSaleableModule", (module) => {
+  const nftSaleable = module.contract("NftSaleable");
 
-  return { nftPractice };
+  return { nftSaleable };
 });
 
-export default NftPracticeModule;
+export default NftSaleableModule;

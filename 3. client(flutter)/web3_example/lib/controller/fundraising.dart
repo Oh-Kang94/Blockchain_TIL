@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/services.dart';
 import 'package:web3_example/controller/web3.dart';
 import 'package:web3dart/web3dart.dart';
 

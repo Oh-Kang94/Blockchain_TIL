@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web3_auction_example/presentation/pages/base/base_page.dart';
 
-class Home extends StatefulWidget {
+class Home extends BasePage {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  Widget buildPage(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Text("Hello"),
+    );
   }
 }

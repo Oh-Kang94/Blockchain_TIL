@@ -4,7 +4,8 @@ import 'package:logger/logger.dart';
 class RiverPodLogger extends ProviderObserver {
   final Logger logger = Logger(
     printer: PrettyPrinter(
-      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+      // dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+      printEmojis: true,
       colors: false, // ANSI 색상 비활성화
       methodCount: 0,
     ),
@@ -16,7 +17,7 @@ class RiverPodLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    logger.d(
+    logger.i(
         '''[Provider Updated] provider : ${provider.name ?? provider.runtimeType} 
 value: ${newValue.toString()}''');
     super.didUpdateProvider(provider, previousValue, newValue, container);
@@ -28,7 +29,7 @@ value: ${newValue.toString()}''');
     Object? value,
     ProviderContainer container,
   ) {
-    logger.d(
+    logger.i(
         '''[Provider Added] provider : ${provider.name ?? provider.runtimeType} 
 value : ${value.toString()}''');
     super.didAddProvider(provider, value, container);
@@ -39,7 +40,7 @@ value : ${value.toString()}''');
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    logger.d(
+    logger.i(
       '[Provider Dispose] provider : ${provider.name ?? provider.runtimeType}',
     );
     super.didDisposeProvider(provider, container);

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web3_auction_example/presentation/home.dart';
+import 'package:web3_auction_example/presentation/pages/auction/auction_page.dart';
+import 'package:web3_auction_example/presentation/pages/create/create_page.dart';
+import 'package:web3_auction_example/presentation/pages/home/home_page.dart';
+import 'package:web3_auction_example/presentation/pages/main/main_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:web3_auction_example/presentation/pages/mypage/my_page.dart';
 
 part 'router.g.dart';
 
@@ -11,31 +15,100 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter appRouter(WidgetRef ref) => GoRouter(
       debugLogDiagnostics: true,
       navigatorKey: rootNavigatorKey,
-      initialLocation: HomeRoute.path,
+      initialLocation: MainRoute.path,
       routes: $appRoutes,
     );
 
-@TypedGoRoute<HomeRoute>(
-  path: HomeRoute.path,
-  name: HomeRoute.name,
+@TypedGoRoute<MainRoute>(
+  path: MainRoute.path,
+  name: MainRoute.name,
+  routes: [
+    TypedGoRoute<AuctionPageRoute>(
+      path: AuctionPageRoute.path,
+      name: AuctionPageRoute.name,
+    ),
+    TypedGoRoute<HomePageRoute>(
+      path: HomePageRoute.path,
+      name: HomePageRoute.name,
+    ),
+    TypedGoRoute<CreatePageRoute>(
+      path: CreatePageRoute.path,
+      name: CreatePageRoute.name,
+    ),
+    TypedGoRoute<MyPageRoute>(
+      path: MyPageRoute.path,
+      name: MyPageRoute.name,
+    ),
+  ],
 )
 @immutable
-class HomeRoute extends GoRouteData {
-  const HomeRoute();
+class MainRoute extends GoRouteData {
+  const MainRoute();
 
-  static const String path = '/home';
+  static const String path = '/';
+  static const String name = 'main';
+
+  // @override
+  // Page<void> buildPage(BuildContext context, GoRouterState state) {
+  //   return CustomTransitionPage(
+  //     child: const MainPage(),
+  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //       return FadeTransition(
+  //         opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+  // }
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const MainPage();
+  }
+}
+
+class MyPageRoute extends GoRouteData {
+  const MyPageRoute();
+  static const String path = 'mypage';
+  static const String name = 'mypage';
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const MyPage();
+  }
+}
+
+class HomePageRoute extends GoRouteData {
+  const HomePageRoute();
+
+  static const String path = 'home';
   static const String name = 'home';
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return CustomTransitionPage(
-      child: const Home(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
-          child: child,
-        );
-      },
-    );
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomePage();
+  }
+}
+
+class CreatePageRoute extends GoRouteData {
+  const CreatePageRoute();
+
+  static const String path = 'create';
+  static const String name = 'create';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CreatePage();
+  }
+}
+
+class AuctionPageRoute extends GoRouteData {
+  const AuctionPageRoute();
+
+  static const String path = 'auction';
+  static const String name = 'auction';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AuctionPage();
   }
 }

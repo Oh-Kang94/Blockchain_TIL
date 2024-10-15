@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/env/flavor.dart';
 import 'package:web3_auction_example/app/router/router.dart';
+import 'package:web3_auction_example/app/themes/app_color.dart';
+import 'package:web3_auction_example/app/themes/app_theme.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
-import 'package:web3_auction_example/presentation/home.dart';
 import 'package:web3_auction_example/presentation/pages/base/responsive_layout.dart';
 
 Future<void> runFlavoredApp() async {
@@ -28,12 +29,12 @@ class MyApp extends StatelessWidget {
       builder: (context, ref, child) {
         return MaterialApp.router(
           routerConfig: appRouter(ref),
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
+          themeMode: ThemeMode.light,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
           debugShowCheckedModeBanner: false,
           builder: (context, child) {
+            AppColor.init(context);
             return ResponsiveLayoutBuilder(context, child);
           },
         );

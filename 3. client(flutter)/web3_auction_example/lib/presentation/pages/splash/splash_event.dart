@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web3_auction_example/app/router/router.dart';
+import 'package:web3_auction_example/app/router/routes.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
 
 mixin class SplashEvent {

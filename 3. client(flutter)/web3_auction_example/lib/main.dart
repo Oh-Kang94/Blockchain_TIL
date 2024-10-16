@@ -27,8 +27,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final router = ref.watch(routerProvider);
         return MaterialApp.router(
-          routerConfig: appRouter(ref),
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          routeInformationProvider: router.routeInformationProvider,
           themeMode: ThemeMode.light,
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,

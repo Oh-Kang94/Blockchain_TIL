@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web3_auction_example/app/di/modules/nft_di.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
+import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 
 part 'nft_list_provider.g.dart';
@@ -15,7 +16,8 @@ class NftList extends _$NftList {
         return value;
       },
       onFailure: (e) {
-        return [];
+        CLogger.e(e);
+        throw e;
       },
     );
   }

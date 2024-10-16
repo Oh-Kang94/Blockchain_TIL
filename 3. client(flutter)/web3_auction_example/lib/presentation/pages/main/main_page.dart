@@ -12,6 +12,7 @@ import 'package:web3_auction_example/presentation/pages/mypage/my_page.dart';
 import 'package:web3_auction_example/presentation/providers/main_bottom_navigation_provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
+import 'package:web3_auction_example/presentation/widgets/common/default_app_bar.dart';
 
 class MainPage extends BasePage {
   const MainPage({super.key});
@@ -64,5 +65,12 @@ class MainPage extends BasePage {
   @override
   Widget? buildBottomNavigationBar(BuildContext context) {
     return const AppBottomNavigationBar();
+  }
+
+  @override
+  PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) {
+    return const DefaultAppBar(
+      title: "NFT Example",
+    );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+Exception _exception = Exception('Not found in environment variables.');
+
 enum Env {
   localhost(type: "LOCALHOST"),
   testNet(type: "TESTNET");
@@ -15,8 +17,10 @@ enum Env {
         testNet => '.env.test',
       };
 
-  String? get apiKey => switch (this) {
-        localhost => dotenv.env['apiKey'],
-        testNet => dotenv.env['apiKey'],
-      };
+  String get apiKey => dotenv.env['apiKey'] ?? (throw _exception);
+
+  String get rpcUrl => dotenv.env['rpcUrl'] ?? (throw _exception);
+
+  int get chainId =>
+      int.tryParse(dotenv.env['chainId'] ?? '') ?? (throw _exception);
 }

@@ -276,6 +276,50 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
 
         require(transferSent, "Error, failed to send Ether");
     }
+
+    function getNFTInfo(
+        uint256 tokenId
+    )
+        public
+        view
+        returns (
+            string memory name_,
+            uint256 tokenId_,
+            string memory tokenURI_,
+            bool isAuction_,
+            uint256 price_,
+            address owner_
+        )
+    {
+        // Listing ID를 찾기 위해 토큰 ID와 매핑된 경매를 순회
+        uint256 listingId = 0; // 기본값을 0으로 설정 (없는 경우)
+        bool listingExists = false;
+
+        for (uint256 i = 1; i <= listingCounter; i++) {
+            if (listings[i].tokenId == tokenId) {
+                listingId = i; // 해당 tokenId와 일치하는 listingId 찾기
+                listingExists = true; // listing이 존재함을 표시
+                break;
+            }
+        }
+
+        Listing memory listing;
+        if (listingExists) {
+            listing = listings[listingId];
+            isAuction_ = isAuctionOpen(listingId); // 경매 상태 확인
+            price_ = listing.price; // 경매 가격
+        } else {
+            isAuction_ = false; // 경매가 없으므로 false
+            price_ = 0; // 가격도 0으로 설정
+        }
+
+        name_ = name(); // ERC721의 NFT 컬렉션 이름
+        tokenId_ = tokenId; // 요청한 tokenId
+        tokenURI_ = tokenURI(tokenId); // 메타데이터 URI
+        owner_ = ownerOf(tokenId); // 토큰 소유자
+
+        return (name_, tokenId_, tokenURI_, isAuction_, price_, owner_);
+    }
 }
 
 // Reference : https://gist.githubusercontent.com/verdotte/f15351646e5cfdd59a553af2fa188a8d/raw/14436a800a722bc4aed7c9051f9b33dff865d28c/auction.sol

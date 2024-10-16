@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:web3_auction_example/app/di/app_binding.dart';
 import 'package:web3_auction_example/app/env/env.enum.dart';
 
 class Flavor {
@@ -37,7 +38,7 @@ class Flavor {
     // TODO : Init IsarDatasource
 
     // TODO : App DI Initialize
-
+    await AppBinding.init();
     // TODO : If need, etc
   }
 }

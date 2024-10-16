@@ -12,14 +12,23 @@ async function main() {
     nftSaleableAddress
   );
 
-  const tokenURI = "https://picsum.photos/id/237/200/300"; // LocalHost용 그냥 리얼 테스트용
+  const randomNumber: number = _randomInteger(100, 150);
+
+  const tokenURI: string = `https://picsum.photos/id/${randomNumber}/200/300`; // LocalHost용 그냥 리얼 테스트용
   const mintTx = await nftSaleable.mint(tokenURI, addr1.address);
 
-  const events = await nftSaleable.queryFilter(nftSaleable.filters.Minted(), 0);
+  const events = await nftSaleable.queryFilter(
+    nftSaleable.filters.Minted(),
+    -1
+  );
 
   console.log(
     `Minted event emitted: Minter - ${events[0].args[0]}, TokenId - ${events[0].args[1]}, URI - ${events[0].args[2]}`
   );
+
+  function _randomInteger(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 }
 
 main()

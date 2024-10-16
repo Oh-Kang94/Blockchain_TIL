@@ -1,4 +1,4 @@
-abstract base class FeatureDiInterface {
+abstract base class IFeatureDI {
   void init() {
     dataSources();
     repositories();

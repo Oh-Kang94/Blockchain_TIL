@@ -9,7 +9,7 @@ final web3DataSource = locator<Web3Datasource>();
 final nftRepository = locator<NftRepository>();
 final getNftImage = locator<GetNftImageUseCase>();
 
-final class NftDI extends FeatureDiInterface {
+final class NftDI extends IFeatureDI {
   @override
   void dataSources() {
     locator.registerLazySingleton<Web3Datasource>(

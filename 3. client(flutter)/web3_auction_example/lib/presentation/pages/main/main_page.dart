@@ -46,6 +46,7 @@ class MainPage extends BasePage {
 
     return PageView(
       controller: mainTabController,
+      physics: const NeverScrollableScrollPhysics(),
       children: pages.mapIndexed((index, e) => e).toList(),
     );
   }

@@ -277,6 +277,10 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
         require(transferSent, "Error, failed to send Ether");
     }
 
+    function getHowManyMinted() public view returns (uint256 length) {
+        return tokenCounter;
+    }
+
     function getNFTInfo(
         uint256 tokenId
     )

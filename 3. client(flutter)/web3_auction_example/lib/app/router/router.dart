@@ -6,6 +6,7 @@ import 'package:web3_auction_example/presentation/pages/home/home_page.dart';
 import 'package:web3_auction_example/presentation/pages/main/main_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.dart';
+import 'package:web3_auction_example/presentation/pages/splash/splash_page.dart';
 
 part 'router.g.dart';
 
@@ -15,10 +16,36 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter appRouter(WidgetRef ref) => GoRouter(
       debugLogDiagnostics: true,
       navigatorKey: rootNavigatorKey,
-      initialLocation: MainRoute.path,
+      initialLocation: SplashRoute.path,
       routes: $appRoutes,
     );
 
+/// SplashScreen
+@TypedGoRoute<SplashRoute>(
+  path: SplashRoute.path,
+  name: SplashRoute.name,
+)
+class SplashRoute extends GoRouteData {
+  const SplashRoute();
+
+  static const String path = '/splash';
+  static const String name = 'splash';
+
+  @override
+  Page<Function> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+      child: const SplashPage(),
+    );
+  }
+}
+
+/// Main
 @TypedGoRoute<MainRoute>(
   path: MainRoute.path,
   name: MainRoute.name,
@@ -48,22 +75,17 @@ class MainRoute extends GoRouteData {
   static const String path = '/';
   static const String name = 'main';
 
-  // @override
-  // Page<void> buildPage(BuildContext context, GoRouterState state) {
-  //   return CustomTransitionPage(
-  //     child: const MainPage(),
-  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-  //       return FadeTransition(
-  //         opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
-  //         child: child,
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const MainPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      child: const MainPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+    );
   }
 }
 

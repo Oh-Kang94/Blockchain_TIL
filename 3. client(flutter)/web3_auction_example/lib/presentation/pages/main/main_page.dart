@@ -32,9 +32,9 @@ class MainPage extends BasePage {
         key: ValueKey(MainNavigationTab.mypage),
       ),
     ];
+    // usePageController는 Flutter Hooks 기능
 
-    final mainTabController =
-        usePageController(); // usePageController는 Flutter Hooks 기능
+    final mainTabController = usePageController(initialPage: 1);
 
     ref.listen(mainBottomNavigationProvider, (_, next) {
       HapticFeedback.lightImpact(); // Flutter 자체 Haptic 기능

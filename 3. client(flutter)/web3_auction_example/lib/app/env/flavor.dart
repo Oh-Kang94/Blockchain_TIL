@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:web3_auction_example/app/di/app_binding.dart';
 import 'package:web3_auction_example/app/env/env.enum.dart';
+import 'package:web3_auction_example/core/datasource/local/isar_datasource.dart';
 
 class Flavor {
   // SingleTon
@@ -35,9 +36,9 @@ class Flavor {
       fileName: env.dotFileName,
     );
 
-    // TODO : Init IsarDatasource
-
-    // TODO : App DI Initialize
+    // Init Local DB
+    await IsarDataSource().initialize();
+    // App DI Initialize
     await AppBinding.init();
     // TODO : If need, etc
   }

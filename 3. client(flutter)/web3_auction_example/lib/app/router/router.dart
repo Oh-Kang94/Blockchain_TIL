@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:web3_auction_example/core/util/logger.dart';
+import 'package:web3_auction_example/presentation/providers/auth/auth_provider.dart';
 import 'routes.dart';
 
 part 'router.g.dart';
@@ -11,48 +13,43 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 @riverpod
 GoRouter router(RouterRef ref) {
   // TODO : Impl for auth
-  // final routerKey = GlobalKey<NavigatorState>(debugLabel: 'routerKey');
-  // final isAuth = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
-  // ref
-  //   ..onDispose(isAuth.dispose) // don't forget to clean after yourselves (:
-  //   // update the listenable, when some provider value changes
-  //   // here, we are just interested in wheter the user's logged in
-  //   ..listen(
-  //       // authControllerProvider
-  //       //     .select((value) => value.whenData((value) => value.isAuth)),
-  //       // (_, next) {
-  //       //   isAuth.value = next;
-  //       // },
-  //       // End
-  //       );
+  final isAuth = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
+  ref
+    ..onDispose(isAuth.dispose)
+    ..listen(
+      authProvider.select((value) => value.whenData((value) => value.isAuth)),
+      (_, next) {
+        isAuth.value = next;
+      },
+    );
   // End
 
   final router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    // TODO : Impl for Auth
-    // refreshListenable: isAuth,
-    // End
+    refreshListenable: isAuth,
     initialLocation: const SplashRoute().location,
     debugLogDiagnostics: true,
     routes: $appRoutes,
-    // TODO : Impl Redirect
-    // redirect: (context, state) {
-    //   if (isAuth.value.unwrapPrevious().hasError)
-    //     return const LoginRoute().location;
-    //   if (isAuth.value.isLoading || !isAuth.value.hasValue)
-    //     return const SplashRoute().location;
+    redirect: (context, state) {
+      if (isAuth.value.unwrapPrevious().hasError) {
+        return const MyPageRoute().location;
+      }
+      if (isAuth.value.isLoading || !isAuth.value.hasValue) {
+        return const SplashRoute().location;
+      }
 
-    //   final auth = isAuth.value.requireValue;
+      final auth = isAuth.value.requireValue;
 
-    //   final isSplash = state.uri.path == const SplashRoute().location;
-    //   if (isSplash)
-    //     return auth ? const HomeRoute().location : const LoginRoute().location;
+      final isSplash = state.uri.path == const SplashRoute().location;
+      if (isSplash) {
+        return auth ? const MainRoute().location : const MyPageRoute().location;
+      }
 
-    //   final isLoggingIn = state.uri.path == const LoginRoute().location;
-    //   if (isLoggingIn) return auth ? const HomeRoute().location : null;
+      final isLoggingIn = state.uri.path == const MyPageRoute().location;
+      if (isLoggingIn) return auth ? const MainRoute().location : null;
 
-    //   return auth ? null : const SplashRoute().location;
-    // },
+      return auth ? null : const SplashRoute().location;
+    },
   );
   ref.onDispose(router.dispose); // always clean up after yourselves (:
 

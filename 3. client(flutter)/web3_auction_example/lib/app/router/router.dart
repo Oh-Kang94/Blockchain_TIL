@@ -32,7 +32,7 @@ GoRouter router(RouterRef ref) {
     routes: $appRoutes,
     redirect: (context, state) {
       if (isAuth.value.unwrapPrevious().hasError) {
-        return const MyPageRoute().location;
+        return const SignInRoute().location;
       }
       if (isAuth.value.isLoading || !isAuth.value.hasValue) {
         return const SplashRoute().location;
@@ -42,10 +42,10 @@ GoRouter router(RouterRef ref) {
 
       final isSplash = state.uri.path == const SplashRoute().location;
       if (isSplash) {
-        return auth ? const MainRoute().location : const MyPageRoute().location;
+        return auth ? const MainRoute().location : const SignInRoute().location;
       }
 
-      final isLoggingIn = state.uri.path == const MyPageRoute().location;
+      final isLoggingIn = state.uri.path == const SignInRoute().location;
       if (isLoggingIn) return auth ? const MainRoute().location : null;
 
       return auth ? null : const SplashRoute().location;

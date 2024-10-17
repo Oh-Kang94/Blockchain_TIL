@@ -23,4 +23,6 @@ enum Env {
 
   int get chainId =>
       int.tryParse(dotenv.env['chainId'] ?? '') ?? (throw _exception);
+
+  String get contract => dotenv.env['contractAddress'] ?? (throw _exception);
 }

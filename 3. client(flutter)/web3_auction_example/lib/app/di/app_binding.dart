@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:web3_auction_example/app/di/modules/auth_di.dart';
 import 'package:web3_auction_example/app/di/modules/nft_di.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
 
@@ -27,7 +28,7 @@ final class AppBinding {
     // 모든 Injection을 실행 시키는 Method
     for (final di in [
       NftDI(),
-      // AuthDependencyInjection(),
+      AuthDI(),
       // UserDependencyInjection(),
       // JobDependencyInjection(),
       // ChatDependencyInject(),

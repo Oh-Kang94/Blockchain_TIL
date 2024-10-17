@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:isar/isar.dart';
 
@@ -8,13 +10,14 @@ part 'wallet.entity.g.dart';
 @Collection(ignore: {'copyWith'})
 class WalletEntity with _$WalletEntity {
   const WalletEntity._();
+
   factory WalletEntity({
-    @JsonKey(name: 'wallet_idx') @Default(Isar.autoIncrement) int walletIdx,
-    @JsonKey(name: 'name') required String name,
-    @JsonKey(name: 'private_key') required String privateKey,
+    @JsonKey(name: 'private_key') required Id privateKey,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'mnemonic') String? mnemonic,
     @JsonKey(name: 'address') required String address,
     @Default(false) bool isActivate,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _WalletEntity;
 
@@ -23,5 +26,5 @@ class WalletEntity with _$WalletEntity {
 
   @override
   // ignore: recursive_getters
-  Id get walletIdx => walletIdx;
+  Id get privateKey => privateKey;  // Id로 지정된 필드를 반환
 }

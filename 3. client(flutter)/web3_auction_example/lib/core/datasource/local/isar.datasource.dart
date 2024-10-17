@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:web3_auction_example/features/auth/entities/wallet.entity.dart';
+import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 
 /// ### `Singleton Class`
 class IsarDataSource {

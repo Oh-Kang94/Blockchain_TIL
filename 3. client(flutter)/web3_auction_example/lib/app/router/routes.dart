@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web3_auction_example/presentation/pages/auction/auction.page.dart';
+import 'package:web3_auction_example/presentation/pages/auth/sign_in.page.dart';
 import 'package:web3_auction_example/presentation/pages/create/create.page.dart';
 import 'package:web3_auction_example/presentation/pages/home/home.page.dart';
 import 'package:web3_auction_example/presentation/pages/main/main.page.dart';
@@ -35,6 +36,29 @@ class SplashRoute extends GoRouteData {
 }
 
 /// SignIn
+@TypedGoRoute<SignInRoute>(
+  path: SignInRoute.path,
+  name: SignInRoute.name,
+)
+class SignInRoute extends GoRouteData {
+  const SignInRoute();
+
+  static const String path = '/sign-in';
+  static const String name = 'SignIn';
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+      child: const SignInPage(),
+    );
+  }
+}
 
 /// Main
 @TypedGoRoute<MainRoute>(

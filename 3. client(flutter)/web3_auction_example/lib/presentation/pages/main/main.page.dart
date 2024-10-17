@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
-import 'package:web3_auction_example/presentation/pages/auction/auction_page.dart';
+import 'package:web3_auction_example/presentation/pages/auction/auction.page.dart';
 import 'package:web3_auction_example/presentation/pages/base/base_page.dart';
-import 'package:web3_auction_example/presentation/pages/create/create_page.dart';
-import 'package:web3_auction_example/presentation/pages/home/home_page.dart';
+import 'package:web3_auction_example/presentation/pages/create/create.page.dart';
+import 'package:web3_auction_example/presentation/pages/home/home.page.dart';
 import 'package:web3_auction_example/presentation/pages/main/widgets/bottom_navigation_bar.dart';
-import 'package:web3_auction_example/presentation/pages/mypage/my_page.dart';
-import 'package:web3_auction_example/presentation/providers/main_bottom_navigation_provider.dart';
+import 'package:web3_auction_example/presentation/pages/mypage/my_page.page.dart';
+import 'package:web3_auction_example/presentation/providers/main_bottom_navigation.provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 import 'package:web3_auction_example/presentation/widgets/common/default_app_bar.dart';

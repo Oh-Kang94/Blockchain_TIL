@@ -1,4 +1,4 @@
-part of '../home_page.dart';
+part of '../home.page.dart';
 
 class _Scaffold extends StatelessWidget with HomeState {
   final Widget nftList;

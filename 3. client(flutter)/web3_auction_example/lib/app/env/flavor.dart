@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:web3_auction_example/app/di/app_binding.dart';
 import 'package:web3_auction_example/app/env/env.enum.dart';
-import 'package:web3_auction_example/core/datasource/local/isar_datasource.dart';
+import 'package:web3_auction_example/core/datasource/local/isar.datasource.dart';
 
 class Flavor {
   // SingleTon

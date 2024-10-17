@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
-import 'package:web3_auction_example/presentation/pages/main/main_event.dart';
-import 'package:web3_auction_example/presentation/providers/main_bottom_navigation_provider.dart';
+import 'package:web3_auction_example/presentation/pages/main/main.event.dart';
+import 'package:web3_auction_example/presentation/providers/main_bottom_navigation.provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 

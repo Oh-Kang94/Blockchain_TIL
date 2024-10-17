@@ -1,9 +1,9 @@
-import 'package:web3_auction_example/core/datasource/remote/web3_datasource.dart';
+import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
 import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
-import 'package:web3_auction_example/features/nft/repository/model/nft.dart';
-import 'package:web3_auction_example/features/nft/repository/nft_repository.dart';
+import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
+import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3dart/web3dart.dart';
 
 class NftRepositoryImpl implements NftRepository {

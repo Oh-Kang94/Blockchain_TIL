@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:web3_auction_example/presentation/pages/auction/auction_page.dart';
-import 'package:web3_auction_example/presentation/pages/create/create_page.dart';
-import 'package:web3_auction_example/presentation/pages/home/home_page.dart';
-import 'package:web3_auction_example/presentation/pages/main/main_page.dart';
+import 'package:web3_auction_example/presentation/pages/auction/auction.page.dart';
+import 'package:web3_auction_example/presentation/pages/create/create.page.dart';
+import 'package:web3_auction_example/presentation/pages/home/home.page.dart';
+import 'package:web3_auction_example/presentation/pages/main/main.page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:web3_auction_example/presentation/pages/mypage/my_page.dart';
-import 'package:web3_auction_example/presentation/pages/splash/splash_page.dart';
+import 'package:web3_auction_example/presentation/pages/mypage/my_page.page.dart';
+import 'package:web3_auction_example/presentation/pages/splash/splash.page.dart';
 
 part 'routes.g.dart';
 
@@ -33,6 +33,8 @@ class SplashRoute extends GoRouteData {
     );
   }
 }
+
+/// SignIn
 
 /// Main
 @TypedGoRoute<MainRoute>(

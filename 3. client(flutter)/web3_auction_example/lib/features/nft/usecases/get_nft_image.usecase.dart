@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:web3_auction_example/core/modules/result/result.dart';
-import 'package:web3_auction_example/core/modules/usecase/base_use_case.dart';
+import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
-import 'package:web3_auction_example/features/nft/repository/model/nft.dart';
-import 'package:web3_auction_example/features/nft/repository/nft_repository.dart';
+import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
+import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 
 final class GetNftImageUseCase
     implements BaseNoParamUseCase<Result<List<NftEntity>>> {

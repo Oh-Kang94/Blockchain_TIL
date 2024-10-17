@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/util/app_size.dart';
-import 'package:web3_auction_example/presentation/pages/home/home_state.dart';
-import 'package:web3_auction_example/presentation/pages/home/widgets/nft_card.dart';
-import 'package:web3_auction_example/presentation/providers/nft/nft_list_provider.dart';
+import 'package:web3_auction_example/presentation/pages/home/home.state.dart';
+import 'package:web3_auction_example/presentation/pages/home/widgets/nft_card.widget.dart';
+import 'package:web3_auction_example/presentation/providers/nft/nft_list.provider.dart';
 
 class NftSection extends ConsumerWidget with HomeState {
   const NftSection({super.key});

@@ -4,7 +4,7 @@ import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 
-part 'nft_list_provider.g.dart';
+part 'nft_list.provider.g.dart';
 
 @riverpod
 class NftList extends _$NftList {

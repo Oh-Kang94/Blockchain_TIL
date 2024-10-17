@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_provider.g.dart';
-part 'auth_provider.freezed.dart';
+part 'auth.provider.g.dart';
+part 'auth.provider.freezed.dart';
 
 @Riverpod(keepAlive: true)
 class Auth extends _$Auth {
@@ -12,7 +12,7 @@ class Auth extends _$Auth {
     await Future.delayed(
       const Duration(seconds: 1),
     );
-    state = AuthState.success();
+    state = AuthState.fail();
     return state;
   }
 }

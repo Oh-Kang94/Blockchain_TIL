@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 
-part 'nft.freezed.dart';
-part 'nft.g.dart';
+part 'nft.model.freezed.dart';
+part 'nft.model.g.dart';
 
 @freezed
 class Nft with _$Nft {

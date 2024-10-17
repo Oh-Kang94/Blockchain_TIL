@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'main_bottom_navigation_provider.g.dart';
+part 'main_bottom_navigation.provider.g.dart';
 
 enum MainNavigationTab {
   auction('경매', Icons.attach_money),

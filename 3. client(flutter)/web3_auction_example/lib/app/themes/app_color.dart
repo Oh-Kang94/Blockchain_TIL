@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 class AppColor extends ThemeExtension<AppColor> {
   // Variables
   final Color white;
-  final Color primary; // Orange
-  final Color secondary; // Blue
+  /// Orange
+  final Color primary;
+  /// Blue
+  final Color secondary;
   final Color gray; // gray
   final Color black; // black
-  final Color error; // Red
-  final Color confirm; // Green
+  /// Red
+  final Color error;
+  /// Green
+  final Color confirm;
 
   // Constructor
   AppColor._({

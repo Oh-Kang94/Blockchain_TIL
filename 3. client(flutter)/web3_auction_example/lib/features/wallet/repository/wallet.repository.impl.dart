@@ -35,10 +35,12 @@ class WalletRepositoryImpl implements WalletRepository {
           (await _addressService.getPublicAddress(signin.privateKey))
               .toString();
       int uniqueKey = _generateUniqueInt();
+
       _secureStorage.setSecure(
         key: uniqueKey.toString(),
         value: signin.privateKey,
       );
+
       final WalletEntity walletEntity = WalletEntity(
         privateKey: uniqueKey,
         name: signin.name,
@@ -46,11 +48,9 @@ class WalletRepositoryImpl implements WalletRepository {
         isActivate: true,
         createdAt: DateTime.now(),
       );
-      await isar.writeTxn(
-        () async {
-          isar.walletEntitys.put(walletEntity);
-        },
-      );
+
+      await _updateQuery(isar, walletEntity);
+
       return Result.success(walletEntity);
     } catch (e) {
       CLogger.e(e);
@@ -72,13 +72,16 @@ class WalletRepositoryImpl implements WalletRepository {
   }
 
   @override
-  Future<Result<WalletEntity>> updateUserInfo({required WalletEntity wallet}) {
-    throw UnimplementedError();
-  }
-
-  int _generateUniqueInt() {
-    var random = Random();
-    return random.nextInt(pow(2, 32).toInt()); // 64비트 정수 생성
+  Future<Result<WalletEntity>> updateUserInfo({
+    required WalletEntity wallet,
+  }) async {
+    final isar = await _localDatasource.db;
+    try {
+      _updateQuery(isar, wallet);
+      return Result.success(wallet);
+    } catch (e) {
+      return Result.failure(const DatabaseException());
+    }
   }
 
   @override
@@ -98,5 +101,40 @@ class WalletRepositoryImpl implements WalletRepository {
       CLogger.i(e);
       return Result.failure(const DatabaseException());
     }
+  }
+
+  @override
+  Future<Result<void>> activateWallet({required WalletEntity wallet}) async {
+    final isar = await _localDatasource.db;
+    try {
+      await _updateAllDeactivate(isar);
+      await _updateQuery(isar, wallet);
+      return Result.success(null);
+    } catch (e) {
+      CLogger.e(e);
+      return Result.failure(const DatabaseException());
+    }
+  }
+
+  // Private
+
+  int _generateUniqueInt() {
+    var random = Random();
+    return random.nextInt(pow(2, 32).toInt()); // 64비트 정수 생성
+  }
+
+  Future<void> _updateQuery(isar, wallet) async {
+    await isar.writeTxn(() async {
+      await isar.walletEntitys.put(wallet);
+    });
+  }
+
+  Future<void> _updateAllDeactivate(isar) async {
+    await isar.users.where().isActiveEqualTo(true).findAll().then((users) {
+      for (var user in users) {
+        user.isActive = false;
+      }
+      isar.users.putAll(users); // 업데이트한 내용을 저장
+    });
   }
 }

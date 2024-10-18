@@ -50,6 +50,10 @@ dependencies:
   bip32: ^2.0.0
   uuid: ^4.5.1
 
+  # UI
+  # Loading Widget
+  shimmer: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

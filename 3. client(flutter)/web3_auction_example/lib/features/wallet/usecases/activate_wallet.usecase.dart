@@ -5,12 +5,13 @@ import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 
-final class GetWalletListUseCase
-    extends BaseNoParamUseCase<Result<List<WalletEntity>>> {
-  final WalletRepository _repository;
+class ActivateWalletUseCase extends BaseUseCase<WalletEntity, Result<void>> {
+  final WalletRepository _walletRepository;
 
-  GetWalletListUseCase(this._repository);
+  ActivateWalletUseCase(this._walletRepository);
 
   @override
-  FutureOr<Result<List<WalletEntity>>> call() => _repository.getWallets();
+  FutureOr<Result<void>> call(WalletEntity request) {
+    return _walletRepository.activateWallet(wallet: request);
+  }
 }

@@ -70,8 +70,14 @@ class MainPage extends BasePage {
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) {
-    return const DefaultAppBar(
+    return DefaultAppBar(
       title: "NFT Example",
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.logout),
+        ),
+      ],
     );
   }
 }

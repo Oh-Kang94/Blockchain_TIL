@@ -27,7 +27,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 15),
         child: Text(
           title ?? '',
-          style: AppTextStyle.headline2,
+          style: AppTextStyle.headline1.copyWith(color: AppColor.of.primary),
         ),
       ),
       toolbarHeight: appbarHeight,

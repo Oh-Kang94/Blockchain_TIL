@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/router/routes.dart';
 import 'package:web3_auction_example/core/util/snack_bar_service.dart';
 import 'package:web3_auction_example/features/wallet/repository/model/signin.dto.dart';
-import 'package:web3_auction_example/presentation/providers/auth/auth.provider.dart';
+import 'package:web3_auction_example/presentation/providers/wallet/auth.provider.dart';
 
 mixin class AuthEvent {
   Future<void> onTapSignin(

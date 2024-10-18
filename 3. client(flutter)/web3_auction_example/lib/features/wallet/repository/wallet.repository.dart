@@ -12,7 +12,7 @@ abstract class WalletRepository {
 
   ///
   /// Get Wallet which is activated
-  /// 
+  ///
   Future<Result<WalletEntity>> getActivateWallet();
 
   ///
@@ -24,4 +24,9 @@ abstract class WalletRepository {
   /// Get Wallet
   ///
   Future<Result<List<WalletEntity>>> getWallets();
+
+  ///
+  /// New Method : It's Unique which is wallet is activating
+  ///
+  Future<Result<void>> activateWallet({required WalletEntity wallet});
 }

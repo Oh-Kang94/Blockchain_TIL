@@ -29,4 +29,14 @@ abstract class WalletRepository {
   /// New Method : It's Unique which is wallet is activating
   ///
   Future<Result<void>> activateWallet({required WalletEntity wallet});
+
+  ///
+  /// Get Balance
+  ///
+  Future<Result<double>> getBalance(String address);
+
+  ///
+  /// Get Wallet
+  ///
+  Future<Result<WalletEntity?>> getWalletByPrivateKey(String privateKey);
 }

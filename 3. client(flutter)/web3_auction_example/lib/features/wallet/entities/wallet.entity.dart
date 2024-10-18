@@ -16,6 +16,7 @@ class WalletEntity with _$WalletEntity {
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'mnemonic') String? mnemonic,
     @JsonKey(name: 'address') required String address,
+    @JsonKey(name: 'amount') required double amount,
     @Default(false) bool isActivate,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,

@@ -4,6 +4,7 @@ import 'package:web3_auction_example/app/di/modules/locators.dart';
 import 'package:web3_auction_example/core/datasource/local/isar.datasource.dart';
 import 'package:web3_auction_example/core/datasource/local/secure_storage.datasource.dart';
 import 'package:web3_auction_example/core/datasource/local/secure_storage.datasource.impl.dart';
+import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
 import 'package:web3_auction_example/core/service/address.service.dart';
 import 'package:web3_auction_example/core/service/address.service.impl.dart';
 import 'package:web3_auction_example/features/wallet/usecases/activate_wallet.usecase.dart';
@@ -36,6 +37,7 @@ final class WalletDI extends IFeatureDI {
         isarDatasource,
         secureStorageDatasource,
         addressService,
+        web3DataSource,
       ),
     );
   }

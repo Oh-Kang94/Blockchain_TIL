@@ -12,6 +12,15 @@ final class SignInUseCase extends BaseUseCase<SignInDto, Result<WalletEntity>> {
   SignInUseCase(this._repository);
 
   @override
-  FutureOr<Result<WalletEntity>> call(SignInDto request) async =>
-      await _repository.createUserInfo(signin: request);
+  FutureOr<Result<WalletEntity>> call(SignInDto request) async {
+    final result = await _repository.getWalletByPrivateKey(request.privateKey);
+    final wallet = result.getOrThrow();
+    if (wallet != null) {
+      await _repository.updateUserInfo(
+        wallet: wallet.copyWith(isActivate: true),
+      );
+      return Result.success(wallet);
+    }
+    return await _repository.createUserInfo(signin: request);
+  }
 }

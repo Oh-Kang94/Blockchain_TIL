@@ -12,21 +12,29 @@ class MyPageInfoCard extends StatelessWidget {
     required this.name,
     required this.address,
     required this.isLoaded,
+    required this.amount,
   });
   final String name;
   final String address;
   final bool isLoaded;
+  final double amount;
 
   factory MyPageInfoCard.fromWalletEntity(WalletEntity wallet) {
     return MyPageInfoCard(
       name: wallet.name ?? '별칭을 정해주세요',
       address: wallet.address,
       isLoaded: true,
+      amount: wallet.amount,
     );
   }
 
   factory MyPageInfoCard.createSkeleton() {
-    return const MyPageInfoCard(name: '', address: '', isLoaded: false);
+    return const MyPageInfoCard(
+      name: '',
+      address: '',
+      isLoaded: false,
+      amount: 0,
+    );
   }
 
   final double height = 130;
@@ -59,6 +67,9 @@ class MyPageInfoCard extends StatelessWidget {
                   "Name : $name",
                 ),
                 _AddressText(address),
+                Text(
+                  "Balance : $amount (ETH)",
+                ),
               ],
             ),
           ],

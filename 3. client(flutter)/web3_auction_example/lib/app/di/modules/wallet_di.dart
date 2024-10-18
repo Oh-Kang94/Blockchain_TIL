@@ -9,6 +9,7 @@ import 'package:web3_auction_example/core/service/address.service.impl.dart';
 import 'package:web3_auction_example/features/wallet/usecases/activate_wallet.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/auth.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/get_wallet_list.usecase.dart';
+import 'package:web3_auction_example/features/wallet/usecases/logout.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.impl.dart';
@@ -45,7 +46,10 @@ final class WalletDI extends IFeatureDI {
     locator
       ..registerFactory<SignInUseCase>(() => SignInUseCase(walletRepository))
       ..registerFactory<AuthUsecase>(() => AuthUsecase(walletRepository))
-      ..registerFactory<ActivateWalletUseCase>(()=> ActivateWalletUseCase(walletRepository))
+      ..registerFactory<ActivateWalletUseCase>(
+        () => ActivateWalletUseCase(walletRepository),
+      )
+      ..registerFactory<LogoutUsecase>(() => LogoutUsecase(walletRepository))
       ..registerFactory<GetWalletListUseCase>(
         () => GetWalletListUseCase(walletRepository),
       );

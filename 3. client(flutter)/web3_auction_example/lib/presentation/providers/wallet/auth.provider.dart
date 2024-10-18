@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web3_auction_example/app/di/modules/locators.dart';
+import 'package:web3_auction_example/app/router/routes.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
@@ -39,6 +40,22 @@ class Auth extends _$Auth {
       },
     );
   }
+
+  Future<bool> logout() async {
+    final result = await logOutUseCase.call();
+    return result.fold(
+      onSuccess: (value) {
+        state = AsyncData(
+          AuthState.logout(),
+        );
+        return true;
+      },
+      onFailure: (e) {
+        CLogger.e(e);
+        return false;
+      },
+    );
+  }
 }
 
 @freezed
@@ -47,10 +64,12 @@ sealed class AuthState with _$AuthState {
   factory AuthState.success({
     required WalletEntity wallet,
   }) = AuthSuccess;
+  factory AuthState.logout() = AuthLogOut;
   factory AuthState.fail() = AuthFailed;
   bool get isAuth => switch (this) {
         AuthSuccess() => true,
         AuthFailed() => false,
+        AuthLogOut() => false,
       };
 }
 

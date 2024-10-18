@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web3_auction_example/app/router/routes.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
+import 'package:web3_auction_example/core/util/snack_bar_service.dart';
+import 'package:web3_auction_example/presentation/providers/wallet/auth.provider.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DefaultAppBar({
@@ -13,6 +17,18 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
 
   static const double appbarHeight = 56;
+
+  factory DefaultAppBar.home(WidgetRef ref) {
+    return DefaultAppBar(
+      title: "NFT Example",
+      actions: [
+        IconButton(
+          onPressed: () async => await _onTapLogOut(ref),
+          icon: const Icon(Icons.logout),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,4 +52,11 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(56);
+
+  static _onTapLogOut(ref) async {
+    final result = await ref.read(authProvider.notifier).logout();
+    if (!result) {
+      SnackBarService.showSnackBar("Failed To LogOut");
+    }
+  }
 }

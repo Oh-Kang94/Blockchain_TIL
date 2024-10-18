@@ -77,7 +77,7 @@ class WalletRepositoryImpl implements WalletRepository {
   }) async {
     final isar = await _localDatasource.db;
     try {
-      _updateQuery(isar, wallet);
+      await _updateQuery(isar, wallet);
       return Result.success(wallet);
     } catch (e) {
       return Result.failure(const DatabaseException());
@@ -123,7 +123,7 @@ class WalletRepositoryImpl implements WalletRepository {
     return random.nextInt(pow(2, 32).toInt()); // 64비트 정수 생성
   }
 
-  Future<void> _updateQuery(isar, wallet) async {
+  Future<void> _updateQuery(Isar isar, WalletEntity wallet) async {
     await isar.writeTxn(() async {
       await isar.walletEntitys.put(wallet);
     });

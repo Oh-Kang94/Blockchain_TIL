@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
@@ -24,7 +25,7 @@ final class GetNftImageUseCase
         return Result.success(resultList);
       },
       onFailure: (e) {
-        return Result.failure(e);
+        return Result.failure(const DatabaseException());
       },
     );
   }

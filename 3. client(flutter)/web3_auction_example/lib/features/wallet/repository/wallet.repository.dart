@@ -11,6 +11,11 @@ abstract class WalletRepository {
   });
 
   ///
+  /// Get Wallet which is activated
+  /// 
+  Future<Result<WalletEntity>> getActivateWallet();
+
+  ///
   /// Save Alias for Wallet
   ///
   Future<Result<WalletEntity>> updateUserInfo({required WalletEntity wallet});

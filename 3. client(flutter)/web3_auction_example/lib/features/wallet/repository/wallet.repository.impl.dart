@@ -80,4 +80,23 @@ class WalletRepositoryImpl implements WalletRepository {
     var random = Random();
     return random.nextInt(pow(2, 32).toInt()); // 64비트 정수 생성
   }
+
+  @override
+  Future<Result<WalletEntity>> getActivateWallet() async {
+    final isar = await _localDatasource.db;
+    try {
+      final WalletEntity? wallet = await isar.walletEntitys
+          .where()
+          .filter()
+          .isActivateEqualTo(true)
+          .findFirst();
+      if (wallet == null) {
+        return Result.failure(const UnauthorizedException());
+      }
+      return Result.success(wallet);
+    } catch (e) {
+      CLogger.i(e);
+      return Result.failure(const DatabaseException());
+    }
+  }
 }

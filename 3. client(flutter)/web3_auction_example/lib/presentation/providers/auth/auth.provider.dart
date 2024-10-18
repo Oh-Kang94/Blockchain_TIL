@@ -13,7 +13,14 @@ part 'auth.provider.freezed.dart';
 class Auth extends _$Auth {
   @override
   FutureOr<AuthState> build() async {
-    return AuthState.fail();
+    state = const AsyncLoading();
+
+    final result = await authUseCase.call();
+
+    return result.fold(
+      onSuccess: (value) => AuthState.success(wallet: value),
+      onFailure: (e) => AuthState.fail(),
+    );
   }
 
   Future<void> signIn(SignInDto signIn) async {

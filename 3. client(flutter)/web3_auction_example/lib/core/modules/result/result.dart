@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:web3_auction_example/core/modules/result/exception.dart';
 
 part 'result.freezed.dart';
 
 @freezed
 sealed class Result<T> with _$Result {
   factory Result.success(T value) = Success;
-  factory Result.failure(Exception error) = Failure;
+  factory Result.failure(CustomException error) = Failure;
 }
 
 extension ResultX<T> on Result<T> {

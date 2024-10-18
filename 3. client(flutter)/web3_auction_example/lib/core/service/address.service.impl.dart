@@ -1,6 +1,7 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:bip32/bip32.dart';
-import 'package:hex/hex.dart';
+// ignore: depend_on_referenced_packages
+import 'package:hex/hex.dart' show HEX;
 import 'package:web3_auction_example/core/service/address.service.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3dart/credentials.dart';

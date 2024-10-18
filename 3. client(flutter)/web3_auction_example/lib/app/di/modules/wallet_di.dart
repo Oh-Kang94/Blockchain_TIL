@@ -6,12 +6,12 @@ import 'package:web3_auction_example/core/datasource/local/secure_storage.dataso
 import 'package:web3_auction_example/core/datasource/local/secure_storage.datasource.impl.dart';
 import 'package:web3_auction_example/core/service/address.service.dart';
 import 'package:web3_auction_example/core/service/address.service.impl.dart';
+import 'package:web3_auction_example/features/wallet/usecases/get_wallet_list.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.impl.dart';
-import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
 
-final class AuthDI extends IFeatureDI {
+final class WalletDI extends IFeatureDI {
   @override
   void dataSources() {
     locator
@@ -41,6 +41,9 @@ final class AuthDI extends IFeatureDI {
   void useCases() {
     // ignore: avoid_single_cascade_in_expression_statements
     locator
-      ..registerFactory<SignInUseCase>(() => SignInUseCase(authRepository));
+      ..registerFactory<SignInUseCase>(() => SignInUseCase(walletRepository))
+      ..registerFactory<GetWalletListUseCase>(
+        () => GetWalletListUseCase(walletRepository),
+      );
   }
 }

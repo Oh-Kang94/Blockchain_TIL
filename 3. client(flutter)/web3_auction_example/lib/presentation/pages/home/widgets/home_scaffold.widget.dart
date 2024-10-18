@@ -33,7 +33,7 @@ class _Scaffold extends StatelessWidget with HomeState {
                   style: AppTextStyle.headline1,
                 );
               },
-            )
+            ),
           ],
         ),
         const SizedBox(

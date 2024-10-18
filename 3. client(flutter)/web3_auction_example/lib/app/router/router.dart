@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/presentation/providers/auth/auth.provider.dart';
 import 'routes.dart';
 

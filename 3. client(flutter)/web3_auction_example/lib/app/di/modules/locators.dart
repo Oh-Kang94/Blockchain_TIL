@@ -8,11 +8,16 @@ import 'package:web3_auction_example/features/wallet/repository/wallet.repositor
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_nft_image.usecase.dart';
 
+// DataSource
 final web3DataSource = locator<Web3Datasource>();
-final nftRepository = locator<NftRepository>();
-final getNftImage = locator<GetNftImageUseCase>();
 final isarDatasource = locator<IsarDataSource>();
 final secureStorageDatasource = locator<SecureStorageDatasource>();
+
+// Repository && Services
+final nftRepository = locator<NftRepository>();
+final walletRepository = locator<WalletRepository>();
 final addressService = locator<AddressService>();
+
+// Usecases
+final getNftImage = locator<GetNftImageUseCase>();
 final signInUseCase = locator<SignInUseCase>();
-final authRepository = locator<WalletRepository>();

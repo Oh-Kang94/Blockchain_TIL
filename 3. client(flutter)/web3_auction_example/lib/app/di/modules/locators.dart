@@ -3,6 +3,7 @@ import 'package:web3_auction_example/core/datasource/local/isar.datasource.dart'
 import 'package:web3_auction_example/core/datasource/local/secure_storage.datasource.dart';
 import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
 import 'package:web3_auction_example/core/service/address.service.dart';
+import 'package:web3_auction_example/features/nft/usecases/get_own_nft_list.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/activate_wallet.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/auth.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/get_wallet_list.usecase.dart';
@@ -25,6 +26,7 @@ final addressService = locator<AddressService>();
 // Usecases
 // NFT
 final getNftImageUseCase = locator<GetNftImageUseCase>();
+final getOwnNftListUseCase = locator<GetOwnNftListUseCase>();
 
 // wallet 
 final signInUseCase = locator<SignInUseCase>();

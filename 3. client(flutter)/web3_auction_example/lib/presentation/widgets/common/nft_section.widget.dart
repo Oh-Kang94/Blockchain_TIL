@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/util/app_size.dart';
+import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 import 'package:web3_auction_example/presentation/pages/home/home.state.dart';
-import 'package:web3_auction_example/presentation/pages/home/widgets/nft_card.widget.dart';
+import 'package:web3_auction_example/presentation/widgets/common/nft_card.widget.dart';
 import 'package:web3_auction_example/presentation/providers/nft/nft_list.provider.dart';
 
 class NftSection extends ConsumerWidget with HomeState {
-  const NftSection({super.key});
+  const NftSection({super.key, required this.nftList});
+  final AsyncValue<List<NftEntity>> nftList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return nftListAsync(ref).when(
+    return nftList.when(
       data: (data) {
         if (data.isEmpty) {
           return const Center(
-            child: Text("자료가 없습니다."),
+            child: Text("해당하는 NFT가 없습니다."),
           );
         }
         return SizedBox(

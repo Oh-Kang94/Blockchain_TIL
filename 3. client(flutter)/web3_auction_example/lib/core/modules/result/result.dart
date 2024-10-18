@@ -12,7 +12,7 @@ sealed class Result<T> with _$Result {
 extension ResultX<T> on Result<T> {
   R fold<R>({
     required R Function(T value) onSuccess,
-    required R Function(Exception e) onFailure,
+    required R Function(CustomException e) onFailure,
   }) {
     return when(
       success: (value) => onSuccess(value),

@@ -5,6 +5,7 @@ import 'package:web3_auction_example/app/di/modules/feature_di_interface.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.impl.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_nft_image.usecase.dart';
+import 'package:web3_auction_example/features/nft/usecases/get_own_nft_list.usecase.dart';
 
 final class NftDI extends IFeatureDI {
   @override
@@ -23,7 +24,9 @@ final class NftDI extends IFeatureDI {
 
   @override
   void useCases() {
-    locator.registerFactory<GetNftImageUseCase>(
+    locator
+    ..registerFactory<GetOwnNftListUseCase>(() => GetOwnNftListUseCase(nftRepository))
+    ..registerFactory<GetNftImageUseCase>(
       () => GetNftImageUseCase(nftRepository),
     );
   }

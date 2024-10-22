@@ -45,7 +45,7 @@ dependencies:
   # 라우팅
   go_router: ^13.1.0
 
-  # Wallet 
+  # Wallet
   bip39: ^1.0.6
   bip32: ^2.0.0
   uuid: ^4.5.1
@@ -53,6 +53,9 @@ dependencies:
   # UI
   # Loading Widget
   shimmer: ^3.0.0
+  # Localization
+  flutter_localizations: # Add
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

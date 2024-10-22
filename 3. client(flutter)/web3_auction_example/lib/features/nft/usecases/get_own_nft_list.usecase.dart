@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
@@ -12,6 +11,7 @@ class GetOwnNftListUseCase
   final NftRepository _nftRepository;
 
   GetOwnNftListUseCase(this._nftRepository);
+  
   @override
   FutureOr<Result<List<NftEntity>>> call(String request) async {
     final List<NftEntity> resultList = [];

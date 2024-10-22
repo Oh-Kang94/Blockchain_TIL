@@ -42,7 +42,7 @@ class NftRepositoryImpl implements NftRepository {
           tokenId: result[1].toInt(),
           tokenURI: result[2],
           isAuction: result[3],
-          price: priceRaw.getValueInUnit(EtherUnit.wei),
+          price: priceRaw.getValueInUnit(EtherUnit.ether),
           owner: result[5].toString(),
         );
 

@@ -4,11 +4,14 @@ import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/util/app_size.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 import 'package:web3_auction_example/presentation/pages/home/home.state.dart';
+import 'package:web3_auction_example/presentation/pages/main/providers/nft_list.provider.dart';
 import 'package:web3_auction_example/presentation/widgets/common/nft_card.widget.dart';
-import 'package:web3_auction_example/presentation/providers/nft/nft_list.provider.dart';
 
 class NftSection extends ConsumerWidget with HomeState {
-  const NftSection({super.key, required this.nftList});
+  const NftSection({
+    super.key,
+    required this.nftList,
+  });
   final AsyncValue<List<NftEntity>> nftList;
 
   @override
@@ -30,8 +33,11 @@ class NftSection extends ConsumerWidget with HomeState {
               ),
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return NftCard.fromNftEntity(
-                  entity: data[index],
+                return GestureDetector(
+                  onTap: () {},
+                  child: NftCard.fromNftEntity(
+                    entity: data[index],
+                  ),
                 );
               },
             ),

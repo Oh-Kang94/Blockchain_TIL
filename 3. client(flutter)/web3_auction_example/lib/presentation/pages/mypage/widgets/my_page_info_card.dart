@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
-import 'package:web3_auction_example/core/extensions/string_extensions.dart';
+import 'package:web3_auction_example/core/extensions/string.extensions.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 import 'package:web3_auction_example/presentation/widgets/common/placeholders.dart';
 
@@ -118,6 +118,17 @@ class _AddressTextState extends State<_AddressText> {
       child: Text(
         "Address: $addressD",
       ),
+    );
+  }
+}
+
+class Test extends StatelessWidget {
+  const Test({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Text("data"),
     );
   }
 }

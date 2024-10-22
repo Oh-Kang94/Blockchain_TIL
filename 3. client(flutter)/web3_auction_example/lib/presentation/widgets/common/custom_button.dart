@@ -72,7 +72,7 @@ class _CustomButtonState extends State<CustomButton> {
       builder: (context, buttonState, child) {
         return SizedBox(
           width: double.infinity,
-          // height: _getHeight,
+          height: _getHeight,
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -126,20 +126,20 @@ class _CustomButtonState extends State<CustomButton> {
     widget.onPressed();
   }
 
-  // double get _getHeight {
-  //   switch (widget.buttonSize) {
-  //     case ButtonSize.large:
-  //       return 56.h;
-  //     case ButtonSize.medium:
-  //       return 52.h;
-  //     case ButtonSize.small:
-  //       return 46.h;
-  //     case ButtonSize.xs:
-  //       return 38.h;
-  //     case ButtonSize.tiny:
-  //       return 28.h;
-  //   }
-  // }
+  double get _getHeight {
+    switch (widget.buttonSize) {
+      case ButtonSize.large:
+        return 56;
+      case ButtonSize.medium:
+        return 52;
+      case ButtonSize.small:
+        return 46;
+      case ButtonSize.xs:
+        return 38;
+      case ButtonSize.tiny:
+        return 28;
+    }
+  }
 
   double get _getPadding {
     switch (widget.buttonSize) {

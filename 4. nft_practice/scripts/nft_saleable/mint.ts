@@ -15,7 +15,7 @@ async function main() {
   const randomNumber: number = _randomInteger(100, 150);
 
   const tokenURI: string = `https://picsum.photos/id/${randomNumber}/200/300`; // LocalHost용 그냥 리얼 테스트용
-  const mintTx = await nftSaleable.mint(tokenURI, addr2.address);
+  const mintTx = await nftSaleable.mint(tokenURI, addr1.address);
 
   const events = await nftSaleable.queryFilter(
     nftSaleable.filters.Minted(),

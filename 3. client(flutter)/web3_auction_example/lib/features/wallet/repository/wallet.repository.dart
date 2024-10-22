@@ -1,6 +1,7 @@
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 import 'package:web3_auction_example/features/wallet/repository/model/signin.dto.dart';
+import 'package:web3dart/web3dart.dart';
 
 abstract class WalletRepository {
   ///
@@ -24,6 +25,11 @@ abstract class WalletRepository {
   /// Get Wallet
   ///
   Future<Result<List<WalletEntity>>> getWallets();
+
+  ///
+  /// Get PrivateKey which is activated
+  ///
+  Future<Result<EthPrivateKey>> getActivatePrivateKey();
 
   ///
   /// New Method : It's Unique which is wallet is activating

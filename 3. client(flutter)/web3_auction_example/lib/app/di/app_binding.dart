@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:web3_auction_example/app/di/modules/auction_di.dart';
 import 'package:web3_auction_example/app/di/modules/wallet_di.dart';
 import 'package:web3_auction_example/app/di/modules/nft_di.dart';
 
@@ -28,7 +29,7 @@ final class AppBinding {
     for (final di in [
       NftDI(),
       WalletDI(),
-      // UserDependencyInjection(),
+      AuctionDI(),
       // JobDependencyInjection(),
       // ChatDependencyInject(),
       // TopicDependencyInjection(),

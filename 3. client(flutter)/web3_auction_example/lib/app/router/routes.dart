@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web3_auction_example/presentation/pages/auction/auction.page.dart';
+import 'package:web3_auction_example/presentation/pages/auction/create/auction_create.page.dart';
 import 'package:web3_auction_example/presentation/pages/auth/sign_in.page.dart';
 import 'package:web3_auction_example/presentation/pages/create/create.page.dart';
 import 'package:web3_auction_example/presentation/pages/home/home.page.dart';
@@ -68,6 +69,12 @@ class SignInRoute extends GoRouteData {
     TypedGoRoute<AuctionPageRoute>(
       path: AuctionPageRoute.path,
       name: AuctionPageRoute.name,
+      routes: [
+        TypedGoRoute<AuctionCreateRoute>(
+          path: AuctionCreateRoute.path,
+          name: AuctionCreateRoute.name,
+        ),
+      ],
     ),
     TypedGoRoute<HomePageRoute>(
       path: HomePageRoute.path,
@@ -147,5 +154,28 @@ class AuctionPageRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AuctionPage();
+  }
+}
+
+class AuctionCreateRoute extends GoRouteData {
+  const AuctionCreateRoute(this.tokenId);
+  static const String path = 'create/:tokenId';
+  static const String name = 'Create Auction';
+  static late int tokenIdArg;
+
+  final int tokenId;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    tokenIdArg = tokenId;
+    return CustomTransitionPage(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+      child: AuctionCreatePage(),
+    );
   }
 }

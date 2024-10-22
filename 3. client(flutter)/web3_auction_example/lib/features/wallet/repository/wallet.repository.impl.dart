@@ -161,6 +161,25 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
       return Result.failure(const DatabaseException());
     }
   }
+
+  @override
+  Future<Result<EthPrivateKey>> getActivatePrivateKey() async {
+    try {
+      WalletEntity walletEntity = (await getActivateWallet()).fold(
+        onSuccess: (wallet) => wallet,
+        onFailure: (e) => throw const DatabaseException(),
+      );
+      String? privateKey = await _secureStorage.getSecure(
+        key: walletEntity.privateKey.toString(),
+      );
+      if (privateKey != null) {
+        return Result.success(EthPrivateKey.fromHex(privateKey));
+      }
+      return Result.failure(const DatabaseException());
+    } catch (e) {
+      return Result.failure(const DatabaseException());
+    }
+  }
 }
 
 mixin _Private {

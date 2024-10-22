@@ -44,6 +44,7 @@ class NftCard extends StatelessWidget {
             height: 120,
             child: Image.network(
               imgUrl,
+              errorBuilder: (_, __, ___) => const Icon(Icons.image),
             ),
           ),
           const SizedBox(
@@ -59,17 +60,17 @@ class NftCard extends StatelessWidget {
               Text(name),
             ],
           ),
-          if(isAuction)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Price(Eth) :",
-                style: AppTextStyle.title2,
-              ),
-              Text("$price Eth"),
-            ],
-          ),
+          if (isAuction)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Price :",
+                  style: AppTextStyle.title2,
+                ),
+                Text("$price Eth"),
+              ],
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -19,6 +19,7 @@ class CreateAuctionUseCase
   @override
   FutureOr<Result<AuctionResultEntity>> call(AuctionDto request) async {
     try {
+      CLogger.i("Request From UseCase : $request");
       final result =
           await _auctionRepository.createAuction(auctionDto: request);
 

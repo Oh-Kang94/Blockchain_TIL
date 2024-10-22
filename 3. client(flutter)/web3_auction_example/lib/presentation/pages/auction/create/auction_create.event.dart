@@ -8,7 +8,6 @@ import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/auction/repository/model/auction.dto.dart';
 import 'package:web3_auction_example/presentation/pages/auction/providers/auction_ended_at.provider.dart';
 import 'package:web3_auction_example/presentation/pages/auction/providers/auction_initial_price.provider.dart';
-import 'package:web3_auction_example/presentation/pages/auction/providers/nft_list_own.provider.dart';
 import 'package:web3_auction_example/presentation/providers/auction/auction_create_arg.provider.dart';
 import 'package:web3_auction_example/presentation/widgets/common/custom_dialog.dart';
 
@@ -21,18 +20,13 @@ mixin class AuctionCreateEvent {
     if (initialPrice.isNotEmpty && endedAt != null) {
       auctionDto = AuctionDto(
         tokenId: BigInt.from(tokenId),
-        price: BigInt.from(double.parse(initialPrice)),
+        price: BigInt.from((double.parse(initialPrice) * 1e18)),
         durationInSeconds:
             BigInt.from(endedAt.difference(DateTime.now()).inSeconds),
       );
 
-      CLogger.i(auctionDto.toString());
       final Result result = await createAuctionUseCase.call(auctionDto);
       CLogger.i(result);
-
-      if (result is Success) {
-        final _ = ref.refresh(nftListOwnProvider);
-      }
     } else {
       _showFailDialog(context);
       return;

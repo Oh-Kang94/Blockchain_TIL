@@ -53,7 +53,10 @@ class AuctionCreatePage extends BasePage
                         width: 2,
                       ),
                     ),
-                    child: Image.network(nft.imageUrl),
+                    child: Image.network(
+                      nft.imageUrl,
+                      errorBuilder: (_, __, ___) => const Icon(Icons.image),
+                    ),
                   ),
                 ),
                 const Space(

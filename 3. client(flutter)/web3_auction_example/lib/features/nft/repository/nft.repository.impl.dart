@@ -36,13 +36,16 @@ class NftRepositoryImpl implements NftRepository {
           params: [BigInt.from(i)],
         );
 
-        final priceRaw = EtherAmount.fromBigInt(EtherUnit.ether, result[4]);
+        final EtherAmount priceRaw =
+            EtherAmount.fromBigInt(EtherUnit.wei, result[4]);
+
+        CLogger.i(priceRaw);
         final nft = Nft(
           name: result[0],
           tokenId: result[1].toInt(),
           tokenURI: result[2],
           isAuction: result[3],
-          price: priceRaw.getValueInUnit(EtherUnit.ether),
+          price: priceRaw.getValueInUnitBI(EtherUnit.ether),
           owner: result[5].toString(),
         );
 

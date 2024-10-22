@@ -175,7 +175,7 @@ class AuctionCreateRoute extends GoRouteData {
           child: child,
         );
       },
-      child: AuctionCreatePage(),
+      child: const AuctionCreatePage(),
     );
   }
 }

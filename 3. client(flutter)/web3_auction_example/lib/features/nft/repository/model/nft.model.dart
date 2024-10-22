@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
+import 'package:web3dart/web3dart.dart';
 
 part 'nft.model.freezed.dart';
 part 'nft.model.g.dart';
@@ -11,7 +12,7 @@ class Nft with _$Nft {
     required int tokenId,
     required String tokenURI,
     required bool isAuction,
-    required double price,
+    required BigInt price,
     required String owner,
   }) = _Nft;
 

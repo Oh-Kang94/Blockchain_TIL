@@ -2,6 +2,7 @@ import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart
 import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/util/logger.dart';
+import 'package:web3_auction_example/features/nft/repository/model/minted_event.dto.dart';
 import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3dart/web3dart.dart';
@@ -22,8 +23,6 @@ class NftRepositoryImpl implements NftRepository {
         onSuccess: (value) => value,
         onFailure: (e) => throw e,
       );
-      CLogger.i("Minted Count : $mintedCount");
-
       final contract = await _web3datasource.getContract();
       final ContractFunction getInfo = contract.function('getNFTInfo');
       List<Nft> nftList = [];
@@ -39,7 +38,6 @@ class NftRepositoryImpl implements NftRepository {
         final EtherAmount priceRaw =
             EtherAmount.fromBigInt(EtherUnit.wei, result[4]);
 
-        CLogger.i(priceRaw);
         final nft = Nft(
           name: result[0],
           tokenId: result[1].toInt(),
@@ -52,7 +50,6 @@ class NftRepositoryImpl implements NftRepository {
         // 4. 리스트에 추가
         nftList.add(nft);
       }
-      CLogger.i(nftList);
 
       // 5. 모든 NFT 정보를 담은 리스트 반환
       return Result.success(nftList);
@@ -86,5 +83,78 @@ class NftRepositoryImpl implements NftRepository {
         ),
       );
     }
+  }
+
+  @override
+  Future<Result<(MintedEvent, BigInt)>> createNft({
+    required String tokenUri,
+    required EthPrivateKey privateKey,
+  }) async {
+    try {
+      late final MintedEvent eventDto;
+      final DeployedContract contract = await _web3datasource.getContract();
+      // #0 Set Event Stream Configuration
+      final ContractEvent auctionEvent = contract.event('Minted');
+      final filter =
+          FilterOptions.events(contract: contract, event: auctionEvent);
+      final receipt = await _makeTransaction(
+        contract: contract,
+        tokenUri: tokenUri,
+        privateKey: privateKey,
+      );
+
+      // #2 Get Event Async
+      final eventStream = _web3datasource.client.events(filter).take(1);
+
+      await for (final event in eventStream) {
+        final decoded = auctionEvent.decodeResults(event.topics!, event.data!);
+        CLogger.i(decoded);
+        final minterAddress = decoded[0] as EthereumAddress;
+        final tokenId = decoded[1] as BigInt;
+        final tokenURI = decoded[2] as String;
+
+        eventDto = MintedEvent(
+          minterAddress: minterAddress,
+          tokenId: tokenId,
+          tokenURI: tokenURI,
+        );
+      }
+
+      // #3 Get GasFee From TX
+      if (receipt != null) {
+        final BigInt? gasUsed = receipt.gasUsed; // 사용된 가스량
+        final BigInt effectiveGasPrice = receipt.effectiveGasPrice!
+            .getValueInUnitBI(EtherUnit.gwei); // 가스 가격 (wei 단위)
+
+        // 가스비 계산
+        final BigInt gasCost = gasUsed! * effectiveGasPrice; // 가스비 (wei 단위)
+
+        return Result.success((eventDto, gasCost));
+      }
+      return Result.failure(const UndefinedException(''));
+    } catch (e) {
+      return Result.failure(NetworkException(e.toString()));
+    }
+  }
+
+  Future<TransactionReceipt?> _makeTransaction({
+    required DeployedContract contract,
+    required String tokenUri,
+    required EthPrivateKey privateKey,
+  }) async {
+    Transaction tx = Transaction.callContract(
+      contract: contract,
+      function: contract.function('mint'), // FROM abi
+      parameters: [
+        tokenUri,
+        privateKey.address,
+      ],
+    );
+    final txHash = await _web3datasource.client.sendTransaction(
+      privateKey,
+      tx,
+      chainId: _web3datasource.chainId,
+    );
+    return await _web3datasource.client.getTransactionReceipt(txHash);
   }
 }

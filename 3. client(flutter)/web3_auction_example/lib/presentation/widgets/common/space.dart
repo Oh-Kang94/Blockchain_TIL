@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 enum SpaceProperties { raw, column }
 
 class Space extends StatelessWidget {
-  const Space({
+  const Space(
+    this.extent, {
     super.key,
-    this.extent = 20,
     this.properties = SpaceProperties.raw,
     this.color = Colors.transparent,
   });
@@ -14,11 +14,12 @@ class Space extends StatelessWidget {
   final Color color;
 
   factory Space.defaultRaw() {
-    return const Space();
+    return const Space(20);
   }
 
   factory Space.defaultColumn() {
     return const Space(
+      20,
       properties: SpaceProperties.column,
     );
   }

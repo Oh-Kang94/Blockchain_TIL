@@ -31,7 +31,7 @@ class SignInPage extends BasePage with AuthEvent {
             ),
             const Space(
               properties: SpaceProperties.column,
-              extent: 80,
+              80,
             ),
             HookBuilder(
               builder: (context) {

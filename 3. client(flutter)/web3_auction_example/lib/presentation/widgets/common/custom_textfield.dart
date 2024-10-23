@@ -35,9 +35,13 @@ class CustomTextfield extends StatefulWidget {
     this.inputFormatters,
     this.enabled = true,
     this.keyboardType = TextInputType.text,
-  }) : assert(
+    this.isClear = false,
+  })  : assert(
           !isObscure || onClear != null,
           'onClear cannot be null if isObscure is true',
+        ),
+        assert(
+          !(isClear && onClear == null),
         );
 
   final FocusNode focusNode;
@@ -50,6 +54,7 @@ class CustomTextfield extends StatefulWidget {
   final VoidCallback? onClear;
   final bool isEndTextField;
   final bool isObscure;
+  final bool isClear;
   final String? helperText;
   final String? resultText;
   final bool? isSuccess;
@@ -102,7 +107,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
   }
 
   void _handleTextChange() {
-    _canClear = widget.controller.text.isNotEmpty;
+    _canClear = widget.controller.text.isNotEmpty || widget.isClear;
     setState(() {});
     _updateState();
   }
@@ -354,7 +359,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   ],
                 ),
               ),
-              _buildObscureButton(),
+              !widget.isClear ? _buildObscureButton() : _buildClearButton(),
             ],
           ),
         ),

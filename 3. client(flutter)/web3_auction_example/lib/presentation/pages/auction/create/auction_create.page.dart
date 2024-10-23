@@ -37,9 +37,7 @@ class AuctionCreatePage extends BasePage
                 ),
                 Text("Name : ${nft.name}"),
                 Text("SerialNumber : ${nft.tokenId}"),
-                const Space(
-                  properties: SpaceProperties.column,
-                ),
+                Space.defaultColumn(),
                 Text(
                   "Auction State : ${nft.isAuction ? "OnGoing" : "No Auction"}",
                 ),
@@ -59,9 +57,7 @@ class AuctionCreatePage extends BasePage
                     ),
                   ),
                 ),
-                const Space(
-                  properties: SpaceProperties.column,
-                ),
+                Space.defaultColumn(),
                 CustomTextfield(
                   controller: ref.read(auctionInitialPriceProvider),
                   focusNode: FocusNode(),
@@ -77,10 +73,7 @@ class AuctionCreatePage extends BasePage
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                 ),
-                const Space(
-                  properties: SpaceProperties.column,
-                  extent: 20,
-                ),
+                Space.defaultColumn(),
                 CupertinoButton(
                   onPressed: () => showCupertinoModalPopup(
                     context: ref.context,
@@ -109,7 +102,7 @@ class AuctionCreatePage extends BasePage
                 ),
                 const Space(
                   properties: SpaceProperties.column,
-                  extent: 50,
+                  50,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

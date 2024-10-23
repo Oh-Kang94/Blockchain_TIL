@@ -24,9 +24,7 @@ class AuctionListingTabView extends HookConsumerWidget with AuctionState {
               style: AppTextStyle.title1,
             ),
           ),
-          const Space(
-            properties: SpaceProperties.column,
-          ),
+          Space.defaultColumn(),
           nftListAsync(ref).when(
             data: (data) {
               if (data.isEmpty) {

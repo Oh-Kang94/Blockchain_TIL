@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web3_auction_example/app/di/modules/locators.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/presentation/pages/base/base_page.dart';
 import 'package:web3_auction_example/presentation/pages/create/create.event.dart';
 import 'package:web3_auction_example/presentation/widgets/common/custom_button.dart';

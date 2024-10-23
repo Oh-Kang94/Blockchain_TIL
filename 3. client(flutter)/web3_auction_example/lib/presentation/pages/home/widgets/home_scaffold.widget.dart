@@ -9,7 +9,6 @@ class _Scaffold extends StatelessWidget with HomeState {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         Row(

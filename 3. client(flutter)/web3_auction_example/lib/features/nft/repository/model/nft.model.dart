@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
-import 'package:web3dart/web3dart.dart';
 
 part 'nft.model.freezed.dart';
 part 'nft.model.g.dart';

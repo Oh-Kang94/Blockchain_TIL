@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -40,17 +41,17 @@ void main() async {
       final mintedEvent = result.getOrThrow().$1;
       final gasCost = result.getOrThrow().$2;
 
-      print('Minter: ${mintedEvent.minterAddress}');
-      print('TokenId: ${mintedEvent.tokenId}');
-      print('Gas Cost: $gasCost');
+      log('Minter: ${mintedEvent.minterAddress}');
+      log('TokenId: ${mintedEvent.tokenId}');
+      log('Gas Cost: $gasCost');
 
       // 추가로 응답 데이터가 올바른지 검증할 수 있음
       expect(mintedEvent.minterAddress, isNotNull);
       expect(mintedEvent.tokenId, isNotNull);
       expect(gasCost, isNotNull);
     } else {
-      print('Error: $result');
-      fail('MintNftUsecase failed with exception: ${result}');
+      log('Error: $result');
+      fail('MintNftUsecase failed with exception: $result');
     }
   });
 }

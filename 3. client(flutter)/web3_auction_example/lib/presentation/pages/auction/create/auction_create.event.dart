@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/di/modules/locators.dart';
-import 'package:web3_auction_example/core/extensions/datetime_extensions.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/util/dialog.service.dart';
 import 'package:web3_auction_example/core/util/logger.dart';

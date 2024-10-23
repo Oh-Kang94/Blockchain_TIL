@@ -11,7 +11,6 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 /// RiverPod이랑 같이 initialize 하기 위해, Generate 된걸 가져온다.
 @riverpod
 GoRouter router(RouterRef ref) {
-  // TODO : Impl for auth
   final isAuth = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   ref
     ..onDispose(isAuth.dispose)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web3_auction_example/presentation/pages/auction/auction.page.dart';
+import 'package:web3_auction_example/presentation/pages/auction/bidding/auction_bidding.page.dart';
 import 'package:web3_auction_example/presentation/pages/auction/create/auction_create.page.dart';
 import 'package:web3_auction_example/presentation/pages/auth/sign_in.page.dart';
 import 'package:web3_auction_example/presentation/pages/create/create.page.dart';
@@ -188,13 +189,13 @@ class AuctionBiddingRoute extends GoRouteData {
   const AuctionBiddingRoute(this.tokenId);
   static const String path = 'bid/:tokenId';
   static const String name = 'Bidding Auction';
-  static late int tokenIdArg;
+  static late int biddingTokenIdArg;
 
   final int tokenId;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    tokenIdArg = tokenId;
+    biddingTokenIdArg = tokenId;
     return CustomTransitionPage(
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
@@ -202,7 +203,7 @@ class AuctionBiddingRoute extends GoRouteData {
           child: child,
         );
       },
-      child: const AuctionCreatePage(),
+      child: const AuctionBiddingPage(),
     );
   }
 }

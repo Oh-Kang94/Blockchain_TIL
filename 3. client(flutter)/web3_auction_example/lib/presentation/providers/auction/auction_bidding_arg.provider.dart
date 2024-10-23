@@ -5,5 +5,5 @@ part 'auction_bidding_arg.provider.g.dart';
 
 @riverpod
 int auctionBiddingArg(AuctionBiddingArgRef ref) {
-  return AuctionBiddingRoute.tokenIdArg;
+  return AuctionBiddingRoute.biddingTokenIdArg;
 }

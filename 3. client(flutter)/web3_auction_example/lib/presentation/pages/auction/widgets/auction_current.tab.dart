@@ -5,6 +5,7 @@ import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/util/app_size.dart';
 import 'package:web3_auction_example/presentation/pages/auction/auction.state.dart';
 import 'package:web3_auction_example/presentation/pages/auction/providers/nft_list_auction.provider.dart';
+import 'package:web3_auction_example/presentation/pages/auction/widgets/auction_card.dart';
 import 'package:web3_auction_example/presentation/widgets/common/nft_card.widget.dart';
 import 'package:web3_auction_example/presentation/widgets/common/space.dart';
 
@@ -29,19 +30,23 @@ class AuctionCurrentTabView extends HookConsumerWidget with AuctionState {
           nftAuctionListAsync(ref).when(
             data: (data) {
               if (data.isEmpty) {
-                return Center(
-                  child: Column(
-                    children: [
-                      const Text("해당하는 NFT가 없습니다."),
-                      ElevatedButton(
-                        onPressed: () async =>
-                            await ref.refresh(nftListAuctionProvider),
-                        child: Text(
-                          "Refresh",
-                          style: AppTextStyle.alert1,
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("해당하는 NFT가 없습니다."),
+                        Space.defaultColumn(),
+                        ElevatedButton(
+                          onPressed: () async =>
+                              await ref.refresh(nftListAuctionProvider),
+                          child: Text(
+                            "Refresh",
+                            style: AppTextStyle.alert1,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               }
@@ -60,7 +65,7 @@ class AuctionCurrentTabView extends HookConsumerWidget with AuctionState {
                       return GestureDetector(
                         onTap: () => AuctionBiddingRoute(data[index].tokenId)
                             .push(context),
-                        child: NftCard.fromNftEntity(
+                        child: AuctionCard.fromNftEntity(
                           entity: data[index],
                         ),
                       );

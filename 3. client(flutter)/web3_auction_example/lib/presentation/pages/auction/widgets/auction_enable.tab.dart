@@ -28,19 +28,23 @@ class AuctionEnableTabView extends HookConsumerWidget with AuctionState {
           nftOwnListAsync(ref).when(
             data: (data) {
               if (data.isEmpty) {
-                return Center(
-                  child: Column(
-                    children: [
-                      const Text("해당하는 NFT가 없습니다."),
-                      ElevatedButton(
-                        onPressed: () async =>
-                            await ref.refresh(nftListOwnProvider),
-                        child: Text(
-                          "Refresh",
-                          style: AppTextStyle.alert1,
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("해당하는 NFT가 없습니다."),
+                        Space.defaultColumn(),
+                        ElevatedButton(
+                          onPressed: () async =>
+                              await ref.refresh(nftListOwnProvider),
+                          child: Text(
+                            "Refresh",
+                            style: AppTextStyle.alert1,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               }

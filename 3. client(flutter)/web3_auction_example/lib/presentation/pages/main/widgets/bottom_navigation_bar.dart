@@ -15,6 +15,7 @@ class AppBottomNavigationBar extends ConsumerWidget with MainEvent {
     final currentTab = ref.watch(mainBottomNavigationProvider);
     return BottomNavigationBar(
       backgroundColor: AppColor.of.white,
+      type: BottomNavigationBarType.fixed,
       currentIndex: currentTab.index,
       onTap: (value) => onTapBottomNavigationItem(
         ref,
@@ -36,6 +37,7 @@ class AppBottomNavigationBar extends ConsumerWidget with MainEvent {
                     ? AppColor.of.black
                     : AppColor.of.gray,
               ),
+              backgroundColor: AppColor.of.white,
             ),
           )
           .toList(),

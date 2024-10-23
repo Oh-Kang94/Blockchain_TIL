@@ -66,7 +66,7 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
     event WithdrawBid(uint256 listingId, address indexed bidder, uint256 bid);
 
     // Mapping
-
+    mapping(uint256 => uint256[]) public tokenToListings; // tokenId로 listingId를 찾기 위한 mapping (tokenId => listingId)
     mapping(uint256 => Listing) public listings; // 경매 목록을 관리 (경매 Id => 경매목록)
     mapping(uint256 => mapping(address => uint256)) public bids; // 입찰 목록 (입찰 id => (입찰자 지갑 주소 => 입찰 금액))
     mapping(uint256 => address) public highestBidder; // 최고 입찰자를 기록 (경매 id => 최고 입찰자 지갑 주소)
@@ -122,6 +122,9 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
             endAt: endAt
         });
 
+        // 새로운 경매 생성 시 tokenToListings에 경매 ID 추가
+        tokenToListings[tokenId].push(listingId); // push : 말 그대로 뒤에 하나 더 붙이는 것. Flutter에서 .add
+
         // 내부 함수 전송을 이용 실질적인 Transaction 진행
         _transfer(msg.sender, address(this), tokenId);
 
@@ -140,8 +143,12 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
     /// `payable`로 돈을 받을 수 있다.
     /// 실 입찰금액은 highestBidder에 value로 저장이되고,
     /// 그 후 입찰 시작 금액은 listing.price로 저장이 된다.
-    /// @param listingId 경매 리스팅 id로 결제
     function bid(uint256 listingId) public payable nonReentrant {
+        // TODO : 지워야 할수 있음
+        // 추가: `tokenId`로부터 `listingId`를 찾음
+        // uint256 listingId = tokenToListingId[tokenId];
+        // End
+
         // nonReentrant는 한명이 입찰중이면 진입 할 수 없게 막음
         require(isAuctionOpen(listingId), "auction has ended");
 
@@ -323,6 +330,62 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
         owner_ = ownerOf(tokenId); // 토큰 소유자
 
         return (name_, tokenId_, tokenURI_, isAuction_, price_, owner_);
+    }
+
+    function getActiveAuctionsForToken(
+        uint256 tokenId
+    ) public view returns (Listing[] memory) {
+        uint256[] memory listingIds = tokenToListings[tokenId];
+        uint256 activeCount = 0;
+
+        // 진행 중인 경매 수를 계산
+        for (uint256 i = 0; i < listingIds.length; i++) {
+            if (isAuctionOpen(listingIds[i])) {
+                activeCount++;
+            }
+        }
+
+        // 진행 중인 경매를 저장할 배열을 초기화
+        Listing[] memory activeListings = new Listing[](activeCount);
+        uint256 index = 0;
+
+        // 진행 중인 경매들을 배열에 추가
+        for (uint256 i = 0; i < listingIds.length; i++) {
+            if (isAuctionOpen(listingIds[i])) {
+                activeListings[index] = listings[listingIds[i]];
+                index++;
+            }
+        }
+
+        return activeListings;
+    }
+
+    function getExpiredAuctionsForToken(
+        uint256 tokenId
+    ) public view returns (Listing[] memory) {
+        uint256[] memory listingIds = tokenToListings[tokenId];
+        uint256 expiredCount = 0;
+
+        // 종료된 경매 수를 계산
+        for (uint256 i = 0; i < listingIds.length; i++) {
+            if (isAuctionExpired(listingIds[i])) {
+                expiredCount++;
+            }
+        }
+
+        // 종료된 경매를 저장할 배열을 초기화
+        Listing[] memory expiredListings = new Listing[](expiredCount);
+        uint256 index = 0;
+
+        // 종료된 경매들을 배열에 추가
+        for (uint256 i = 0; i < listingIds.length; i++) {
+            if (isAuctionExpired(listingIds[i])) {
+                expiredListings[index] = listings[listingIds[i]];
+                index++;
+            }
+        }
+
+        return expiredListings;
     }
 }
 

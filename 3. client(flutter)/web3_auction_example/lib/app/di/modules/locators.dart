@@ -5,6 +5,7 @@ import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart
 import 'package:web3_auction_example/core/service/address.service.dart';
 import 'package:web3_auction_example/features/auction/repository/auction.repository.dart';
 import 'package:web3_auction_example/features/auction/usecase/create_auction.usecase.dart';
+import 'package:web3_auction_example/features/nft/usecases/get_auction_nft_list.usecase.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_own_nft_list.usecase.dart';
 import 'package:web3_auction_example/features/nft/usecases/mint_nft.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/activate_wallet.usecase.dart';
@@ -31,6 +32,7 @@ final auctionRepository = locator<AuctionRepository>();
 // NFT
 final getNftImageUseCase = locator<GetNftImageUseCase>();
 final getOwnNftListUseCase = locator<GetOwnNftListUseCase>();
+final getAuctionNftListUseCase = locator<GetAuctionNftListUsecase>();
 
 // wallet
 final signInUseCase = locator<SignInUseCase>();

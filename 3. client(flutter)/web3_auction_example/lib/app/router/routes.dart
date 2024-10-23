@@ -74,6 +74,10 @@ class SignInRoute extends GoRouteData {
           path: AuctionCreateRoute.path,
           name: AuctionCreateRoute.name,
         ),
+        TypedGoRoute<AuctionBiddingRoute>(
+          path: AuctionBiddingRoute.path,
+          name: AuctionBiddingRoute.name,
+        ),
       ],
     ),
     TypedGoRoute<HomePageRoute>(
@@ -161,6 +165,29 @@ class AuctionCreateRoute extends GoRouteData {
   const AuctionCreateRoute(this.tokenId);
   static const String path = 'create/:tokenId';
   static const String name = 'Create Auction';
+  static late int tokenIdArg;
+
+  final int tokenId;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    tokenIdArg = tokenId;
+    return CustomTransitionPage(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: Tween(begin: 1.0, end: 0.0).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+      child: const AuctionCreatePage(),
+    );
+  }
+}
+
+class AuctionBiddingRoute extends GoRouteData {
+  const AuctionBiddingRoute(this.tokenId);
+  static const String path = 'bid/:tokenId';
+  static const String name = 'Bidding Auction';
   static late int tokenIdArg;
 
   final int tokenId;

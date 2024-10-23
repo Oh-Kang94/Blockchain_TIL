@@ -3,12 +3,12 @@ part of '../auction.page.dart';
 class _Scaffold extends StatelessWidget {
   const _Scaffold({
     required this.tabController,
-    required this.currentAuctionsTab,
-    required this.auctionListingTab,
+    required this.auctionCurrentTab,
+    required this.auctionEnableTab,
   });
   final TabController tabController;
-  final Widget currentAuctionsTab;
-  final Widget auctionListingTab;
+  final Widget auctionCurrentTab;
+  final Widget auctionEnableTab;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class _Scaffold extends StatelessWidget {
             controller: tabController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              currentAuctionsTab,
-              auctionListingTab,
+              auctionCurrentTab,
+              auctionEnableTab,
             ],
           ),
         ),

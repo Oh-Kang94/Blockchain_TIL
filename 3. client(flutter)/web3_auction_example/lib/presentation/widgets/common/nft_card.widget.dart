@@ -36,12 +36,13 @@ class NftCard extends StatelessWidget {
         border: Border.all(color: AppColor.of.black),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
             height: 10,
           ),
           SizedBox(
-            height: 120,
+            height: 110,
             child: Image.network(
               imgUrl,
               errorBuilder: (_, __, ___) => const Icon(Icons.image),

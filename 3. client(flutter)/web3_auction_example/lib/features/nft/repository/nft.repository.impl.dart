@@ -7,7 +7,7 @@ import 'package:web3_auction_example/features/nft/repository/model/nft.model.dar
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3dart/web3dart.dart';
 
-class NftRepositoryImpl implements NftRepository {
+class NftRepositoryImpl with _Private implements NftRepository {
   final Web3Datasource _web3datasource;
 
   NftRepositoryImpl(this._web3datasource);
@@ -26,6 +26,10 @@ class NftRepositoryImpl implements NftRepository {
       final contract = await _web3datasource.getContract();
       final ContractFunction getInfo = contract.function('getNFTInfo');
       List<Nft> nftList = [];
+
+      if (mintedCount == 0) {
+        return Result.success(nftList);
+      }
 
       // 3. 민팅된 토큰 개수만큼 반복하며 각 NFT 정보를 가져옴
       for (int i = 1; i <= mintedCount; i++) {
@@ -97,10 +101,12 @@ class NftRepositoryImpl implements NftRepository {
       final ContractEvent auctionEvent = contract.event('Minted');
       final filter =
           FilterOptions.events(contract: contract, event: auctionEvent);
+
       final receipt = await _makeTransaction(
         contract: contract,
         tokenUri: tokenUri,
         privateKey: privateKey,
+        web3datasource: _web3datasource,
       );
 
       // #2 Get Event Async
@@ -136,11 +142,15 @@ class NftRepositoryImpl implements NftRepository {
       return Result.failure(NetworkException(e.toString()));
     }
   }
+}
 
+// Private
+mixin class _Private {
   Future<TransactionReceipt?> _makeTransaction({
     required DeployedContract contract,
     required String tokenUri,
     required EthPrivateKey privateKey,
+    required Web3Datasource web3datasource,
   }) async {
     Transaction tx = Transaction.callContract(
       contract: contract,
@@ -150,11 +160,11 @@ class NftRepositoryImpl implements NftRepository {
         privateKey.address,
       ],
     );
-    final txHash = await _web3datasource.client.sendTransaction(
+    final txHash = await web3datasource.client.sendTransaction(
       privateKey,
       tx,
-      chainId: _web3datasource.chainId,
+      chainId: web3datasource.chainId,
     );
-    return await _web3datasource.client.getTransactionReceipt(txHash);
+    return await web3datasource.client.getTransactionReceipt(txHash);
   }
 }

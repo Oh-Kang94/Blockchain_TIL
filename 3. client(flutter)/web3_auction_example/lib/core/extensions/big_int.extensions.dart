@@ -11,4 +11,10 @@ extension BigintExtensions on BigInt {
         .getValueInUnit(EtherUnit.ether)
         .toString();
   }
+
+  String get toStringInGas {
+    return EtherAmount.fromBigInt(EtherUnit.gwei, this)
+        .getValueInUnit(EtherUnit.ether)
+        .toString();
+  }
 }

@@ -17,7 +17,7 @@ import 'package:web3_auction_example/features/wallet/usecases/logout.usecase.dar
 import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
-import 'package:web3_auction_example/features/nft/usecases/get_nft_image.usecase.dart';
+import 'package:web3_auction_example/features/nft/usecases/get_nft_list.usecase.dart';
 
 // DataSource
 final web3DataSource = locator<Web3Datasource>();

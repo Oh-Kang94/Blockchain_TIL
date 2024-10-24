@@ -48,40 +48,42 @@ class CreatePage extends BasePage with CreateEvent {
                 color: AppColor.of.gray,
               ),
             ),
-            child: Image.network(
-              imageUrl.value,
-              errorBuilder: (context, error, stackTrace) {
-                if (wroteImageUrl.value == true) {
-                  Future.microtask(() {
-                    DialogService.show(
-                      dialog: CustomDialog.oneButton(
-                        title: "Failed to Loading Image",
-                        message:
-                            "Failed to get Image via ImageURl\nPlease, check again!",
-                        onPressed: () {
-                          clearImageUrl(
-                            wroteImageUrl,
-                            imageUrlController,
-                            imageUrl,
+            child: wroteImageUrl.value
+                ? Image.network(
+                    imageUrl.value,
+                    errorBuilder: (context, error, stackTrace) {
+                      Future.microtask(() {
+                        if (wroteImageUrl.value == true) {
+                          DialogService.show(
+                            dialog: CustomDialog.oneButton(
+                              title: "Failed to Loading Image",
+                              message:
+                                  "Failed to get Image via ImageURl\nPlease, check again!",
+                              onPressed: () {
+                                clearImageUrl(
+                                  wroteImageUrl,
+                                  imageUrlController,
+                                  imageUrl,
+                                );
+                                Navigator.of(context).pop();
+                              },
+                              okMessage: "OK",
+                            ),
                           );
-                          Navigator.of(context).pop();
-                        },
-                        okMessage: "OK",
-                      ),
-                    );
-                  });
-                }
-                return const Center(child: Icon(Icons.image));
-              },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child; // 이미지 로딩이 끝난 경우
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            ),
+                        }
+                      });
+                      return const Center(child: Icon(Icons.image));
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child; // 이미지 로딩이 끝난 경우
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  )
+                : const Center(child: Icon(Icons.image)),
           ),
           const Spacer(),
           Row(

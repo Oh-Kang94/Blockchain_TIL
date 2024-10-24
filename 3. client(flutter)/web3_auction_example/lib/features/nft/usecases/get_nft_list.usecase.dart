@@ -6,11 +6,11 @@ import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 
-final class GetNftImageUseCase
+final class GetNftListUseCase
     implements BaseNoParamUseCase<Result<List<NftEntity>>> {
   final NftRepository _repository;
 
-  GetNftImageUseCase(this._repository);
+  GetNftListUseCase(this._repository);
 
   @override
   FutureOr<Result<List<NftEntity>>> call() async {

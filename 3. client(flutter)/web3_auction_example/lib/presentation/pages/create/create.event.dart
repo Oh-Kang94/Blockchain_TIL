@@ -20,7 +20,6 @@ mixin class CreateEvent {
     required String imageUrl,
     required ValueNotifier<bool> wroteImageUrl,
   }) async {
-    wroteImageUrl.value = true;
     final result = await mintNftUseCase.call(imageUrl);
     CLogger.i(result);
   }

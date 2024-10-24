@@ -36,8 +36,8 @@ final class NftDI extends IFeatureDI {
       ..registerFactory<GetAuctionNftListUsecase>(
         () => GetAuctionNftListUsecase(nftRepository),
       )
-      ..registerFactory<GetNftImageUseCase>(
-        () => GetNftImageUseCase(nftRepository),
+      ..registerFactory<GetNftListUseCase>(
+        () => GetNftListUseCase(nftRepository),
       );
   }
 }

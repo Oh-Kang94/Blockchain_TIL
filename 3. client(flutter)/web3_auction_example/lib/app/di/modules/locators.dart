@@ -37,7 +37,7 @@ final createAuctionUseCase = locator<CreateAuctionUseCase>();
 final bidAuctionUsecase = locator<BidAuctionUsecase>();
 
 // NFT
-final getNftImageUseCase = locator<GetNftImageUseCase>();
+final getNftListUseCase = locator<GetNftListUseCase>();
 final getOwnNftListUseCase = locator<GetOwnNftListUseCase>();
 final getAuctionNftListUseCase = locator<GetAuctionNftListUsecase>();
 final getAuctionListByTokenUseCase = locator<GetAuctionNftListUsecase>();

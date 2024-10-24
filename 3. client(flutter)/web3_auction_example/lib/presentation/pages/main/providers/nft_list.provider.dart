@@ -9,7 +9,7 @@ part 'nft_list.provider.g.dart';
 class NftList extends _$NftList {
   @override
   FutureOr<List<NftEntity>> build() async {
-    final nftListData = await getNftImageUseCase.call();
+    final nftListData = await getNftListUseCase.call();
     return nftListData.fold(
       onSuccess: (value) {
         return value;

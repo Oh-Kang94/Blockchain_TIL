@@ -5,7 +5,6 @@ import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/extensions/big_int.extensions.dart';
 import 'package:web3_auction_example/core/util/app_size.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/presentation/pages/auction/bidding/auction_bidding.event.dart';
 import 'package:web3_auction_example/presentation/pages/auction/bidding/auction_bidding.state.dart';
 import 'package:web3_auction_example/presentation/pages/auction/bidding/components/bidding_card.dart';

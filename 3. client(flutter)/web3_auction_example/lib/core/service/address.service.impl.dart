@@ -3,7 +3,6 @@ import 'package:bip32/bip32.dart';
 // ignore: depend_on_referenced_packages
 import 'package:hex/hex.dart' show HEX;
 import 'package:web3_auction_example/core/service/address.service.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3dart/credentials.dart';
 
 class AddressServiceImpl implements AddressService {
@@ -26,18 +25,12 @@ class AddressServiceImpl implements AddressService {
     // 4. 파생된 개인 키 가져오기
     final privateKey = HEX.encode(child.privateKey!);
 
-    CLogger.i('private: $privateKey');
-
     return privateKey;
   }
 
   @override
   Future<EthereumAddress> getPublicAddress(String privateKey) async {
-    CLogger.i('privateKey: $privateKey');
-    CLogger.i('privateKey: ${privateKey.length}');
     final private = EthPrivateKey.fromHex(privateKey);
-
-    CLogger.i('address: ${private.address}');
 
     return private.address;
   }

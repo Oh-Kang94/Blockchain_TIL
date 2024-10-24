@@ -4,7 +4,6 @@ import 'package:web3_auction_example/core/extensions/big_int.extensions.dart';
 import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/auction/entities/auction_result.entity.dart';
 import 'package:web3_auction_example/features/auction/repository/auction.repository.dart';
 import 'package:web3_auction_example/features/auction/repository/model/auction.dto.dart';
@@ -39,7 +38,6 @@ class CreateAuctionUseCase
         onFailure: (e) => throw NetworkException(e.toString()),
       );
 
-      CLogger.i(auctionResultEntity);
       return Result.success(auctionResultEntity);
     } catch (e) {
       return Result.failure(UndefinedException(e.toString()));

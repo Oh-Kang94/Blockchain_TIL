@@ -1,8 +1,6 @@
 import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
-import 'package:web3_auction_example/core/extensions/big_int.extensions.dart';
 import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/auction/entities/bid.entity.dart';
 import 'package:web3_auction_example/features/auction/repository/auction.repository.dart';
 import 'package:web3_auction_example/features/auction/repository/model/auction.dto.dart';
@@ -47,7 +45,7 @@ class AuctionRepositoryImpl with _Private implements AuctionRepository {
 
       await for (final event in eventStream) {
         final decoded = auctionEvent.decodeResults(event.topics!, event.data!);
-        CLogger.i(decoded);
+
         final listingId = decoded[0] as BigInt;
         final seller = decoded[1] as EthereumAddress;
         final price = decoded[2] as BigInt;
@@ -142,7 +140,7 @@ class AuctionRepositoryImpl with _Private implements AuctionRepository {
 
       await for (final event in eventStream) {
         final decoded = auctionEvent.decodeResults(event.topics!, event.data!);
-        CLogger.i(decoded);
+
         final listingId = decoded[0] as BigInt;
         final bidder = decoded[1] as EthereumAddress;
         final bid = decoded[2] as BigInt;

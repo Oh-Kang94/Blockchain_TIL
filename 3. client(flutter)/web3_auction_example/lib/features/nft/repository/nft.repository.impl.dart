@@ -1,7 +1,6 @@
 import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
 import 'package:web3_auction_example/core/modules/result/exception.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/nft/repository/model/minted_event.dto.dart';
 import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
@@ -55,7 +54,6 @@ class NftRepositoryImpl with _Private implements NftRepository {
       // 5. 모든 NFT 정보를 담은 리스트 반환
       return Result.success(nftList);
     } catch (e) {
-      CLogger.e(e);
       return Result.failure(
         CustomException.network(
           e.toString(),
@@ -111,7 +109,7 @@ class NftRepositoryImpl with _Private implements NftRepository {
 
       await for (final event in eventStream) {
         final decoded = auctionEvent.decodeResults(event.topics!, event.data!);
-        CLogger.i(decoded);
+
         final minterAddress = decoded[0] as EthereumAddress;
         final tokenId = decoded[1] as BigInt;
         final tokenURI = decoded[2] as String;

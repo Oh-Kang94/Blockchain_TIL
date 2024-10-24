@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 import 'package:web3_auction_example/features/nft/repository/model/nft.model.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
@@ -29,7 +28,7 @@ class GetAuctionNftListUsecase
           (element) => element.isAuction == true,
         )
         .toList();
-    CLogger.i(nftList);
+
     for (var value in nftList) {
       resultList.add(value.toEntity());
     }

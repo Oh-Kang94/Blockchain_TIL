@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:web3_auction_example/core/extensions/double.extensions.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
 import 'package:web3_auction_example/core/modules/usecase/base.usecase.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/auction/repository/auction.repository.dart';
 
 class BidAuctionUsecase

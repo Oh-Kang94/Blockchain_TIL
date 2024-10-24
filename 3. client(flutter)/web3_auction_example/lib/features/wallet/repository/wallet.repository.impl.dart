@@ -114,8 +114,6 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
       }
 
       final newEtherAmount = (await getBalance(wallet.address)).getOrThrow();
-      CLogger.i("WalletRepositoryImpl");
-      CLogger.i(newEtherAmount);
       final newWallet = wallet.copyWith(amount: newEtherAmount);
 
       await updateUserInfo(wallet: newWallet);

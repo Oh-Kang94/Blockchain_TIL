@@ -3,7 +3,6 @@ import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/core/extensions/big_int.extensions.dart';
 import 'package:web3_auction_example/core/extensions/datetime_extensions.dart';
 import 'package:web3_auction_example/features/auction/entities/bid.entity.dart';
-import 'package:web3dart/web3dart.dart';
 
 class BiddingCard extends StatelessWidget {
   const BiddingCard({

@@ -4,9 +4,16 @@ import 'package:web3_auction_example/presentation/pages/base/base_page.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.event.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.state.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/widgets/my_page_info_card.dart';
+import 'package:web3_auction_example/presentation/providers/wallet/auth.provider.dart';
 
 class MyPage extends BasePage with MyPageEvent, MyPageState {
   const MyPage({super.key});
+
+  @override
+  void onInit(WidgetRef ref) {
+    Future.microtask(() => ref.read(authProvider.notifier).updateWallet());
+    super.onInit(ref);
+  }
 
   @override
   Widget buildPage(BuildContext context, WidgetRef ref) {

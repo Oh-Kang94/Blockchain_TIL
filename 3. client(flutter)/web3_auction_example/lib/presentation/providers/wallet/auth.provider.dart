@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web3_auction_example/app/di/modules/locators.dart';
 import 'package:web3_auction_example/core/modules/result/result.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 import 'package:web3_auction_example/features/wallet/repository/model/signin.dto.dart';
 
@@ -32,7 +31,6 @@ class Auth extends _$Auth {
         );
       },
       onFailure: (e) {
-        CLogger.e('Error $e');
         state = AsyncData(
           AuthState.fail(),
         );
@@ -50,8 +48,19 @@ class Auth extends _$Auth {
         return true;
       },
       onFailure: (e) {
-        CLogger.e(e);
         return false;
+      },
+    );
+  }
+
+  updateWallet() async {
+    final result = await authUseCase.call();
+    update(
+      (p0) {
+        return result.fold(
+          onSuccess: (value) => AuthState.success(wallet: value),
+          onFailure: (e) => AuthState.fail(),
+        );
       },
     );
   }

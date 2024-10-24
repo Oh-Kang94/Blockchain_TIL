@@ -39,15 +39,12 @@ class NftRepositoryImpl with _Private implements NftRepository {
           params: [BigInt.from(i)],
         );
 
-        final EtherAmount priceRaw =
-            EtherAmount.fromBigInt(EtherUnit.wei, result[4]);
-
         final nft = Nft(
           name: result[0],
           tokenId: result[1].toInt(),
           tokenURI: result[2],
           isAuction: result[3],
-          price: priceRaw.getValueInUnitBI(EtherUnit.ether),
+          price: result[4],
           owner: result[5].toString(),
         );
 

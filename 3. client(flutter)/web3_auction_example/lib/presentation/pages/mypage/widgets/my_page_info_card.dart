@@ -37,7 +37,7 @@ class MyPageInfoCard extends StatelessWidget {
     );
   }
 
-  final double height = 130;
+  final double height = 155;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:web3_auction_example/core/extensions/big_int.extensions.dart';
 import 'package:web3_auction_example/features/nft/entities/nft.entity.dart';
 
 part 'nft.model.freezed.dart';
@@ -23,7 +24,7 @@ extension NftX on Nft {
     return NftEntity(
       name: name,
       tokenId: tokenId,
-      price: price.toString(),
+      price: price.toStringInEther,
       imageUrl: tokenURI,
       isAuction: isAuction,
       owner: owner,

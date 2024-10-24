@@ -20,8 +20,12 @@ mixin class AuctionCreateEvent {
       auctionDto = AuctionDto(
         tokenId: BigInt.from(tokenId),
         price: BigInt.from((double.parse(initialPrice) * 1e18)),
-        durationInSeconds:
-            BigInt.from(endedAt.difference(DateTime.now()).inSeconds),
+        durationInSeconds: BigInt.from(
+          endedAt
+              .add(const Duration(days: 1)) // Add 1 Days
+              .difference(DateTime.now())
+              .inSeconds,
+        ),
       );
 
       final Result result = await createAuctionUseCase.call(auctionDto);

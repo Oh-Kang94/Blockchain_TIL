@@ -4,7 +4,9 @@ import 'package:web3_auction_example/core/datasource/local/secure_storage.dataso
 import 'package:web3_auction_example/core/datasource/remote/web3.datasource.dart';
 import 'package:web3_auction_example/core/service/address.service.dart';
 import 'package:web3_auction_example/features/auction/repository/auction.repository.dart';
+import 'package:web3_auction_example/features/auction/usecase/bid_auction.usecase.dart';
 import 'package:web3_auction_example/features/auction/usecase/create_auction.usecase.dart';
+import 'package:web3_auction_example/features/auction/usecase/get_auction_list_by_token.usecase.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_auction_nft_list.usecase.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_own_nft_list.usecase.dart';
 import 'package:web3_auction_example/features/nft/usecases/mint_nft.usecase.dart';
@@ -29,10 +31,16 @@ final addressService = locator<AddressService>();
 final auctionRepository = locator<AuctionRepository>();
 
 // Usecases
+// Auction
+final getAuctionListByTokenUsecase = locator<GetAuctionListByTokenUsecase>();
+final createAuctionUseCase = locator<CreateAuctionUseCase>();
+final bidAuctionUsecase = locator<BidAuctionUsecase>();
+
 // NFT
 final getNftImageUseCase = locator<GetNftImageUseCase>();
 final getOwnNftListUseCase = locator<GetOwnNftListUseCase>();
 final getAuctionNftListUseCase = locator<GetAuctionNftListUsecase>();
+final getAuctionListByTokenUseCase = locator<GetAuctionNftListUsecase>();
 
 // wallet
 final signInUseCase = locator<SignInUseCase>();
@@ -40,5 +48,4 @@ final authUseCase = locator<AuthUsecase>();
 final getWalletListUseCase = locator<GetWalletListUseCase>();
 final activateWalletUseCase = locator<ActivateWalletUseCase>();
 final logOutUseCase = locator<LogoutUsecase>();
-final createAuctionUseCase = locator<CreateAuctionUseCase>();
 final mintNftUseCase = locator<MintNftUsecase>();

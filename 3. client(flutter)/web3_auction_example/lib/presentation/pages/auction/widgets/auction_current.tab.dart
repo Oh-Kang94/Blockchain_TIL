@@ -6,7 +6,6 @@ import 'package:web3_auction_example/core/util/app_size.dart';
 import 'package:web3_auction_example/presentation/pages/auction/auction.state.dart';
 import 'package:web3_auction_example/presentation/pages/auction/providers/nft_list_auction.provider.dart';
 import 'package:web3_auction_example/presentation/pages/auction/widgets/auction_card.dart';
-import 'package:web3_auction_example/presentation/widgets/common/nft_card.widget.dart';
 import 'package:web3_auction_example/presentation/widgets/common/space.dart';
 
 class AuctionCurrentTabView extends HookConsumerWidget with AuctionState {

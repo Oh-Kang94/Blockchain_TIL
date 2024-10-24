@@ -108,10 +108,19 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
           .filter()
           .isActivateEqualTo(true)
           .findFirst();
+
       if (wallet == null) {
         return Result.failure(const UnauthorizedException());
       }
-      return Result.success(wallet);
+
+      final newEtherAmount = (await getBalance(wallet.address)).getOrThrow();
+      CLogger.i("WalletRepositoryImpl");
+      CLogger.i(newEtherAmount);
+      final newWallet = wallet.copyWith(amount: newEtherAmount);
+
+      await updateUserInfo(wallet: newWallet);
+
+      return Result.success(newWallet);
     } catch (e) {
       CLogger.i(e);
       return Result.failure(const DatabaseException());

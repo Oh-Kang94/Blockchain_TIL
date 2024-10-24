@@ -26,6 +26,7 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
 
     // Modeling Auction Information
     struct Listing {
+        uint256 listingId;
         address seller;
         uint256 tokenId;
         uint256 price; // display price => 현재 입찰가
@@ -113,6 +114,7 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
 
         // 구조체 만들어서 mapping에 연결
         listings[listingId] = Listing({
+            listingId: listingId,
             seller: msg.sender,
             tokenId: tokenId,
             price: price,
@@ -159,9 +161,12 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
 
         uint256 newBid = bids[listingId][msg.sender] + msg.value; // msg.value는 전송 금액
 
+        // 물품 가액 * 1.005
+        uint256 incentive = listing.price / minAuctionIncrement; // 최소 입찰 추가 금액
+
         // 새로운 비딩은 더 높아야한다.
         require(
-            newBid > listing.price,
+            newBid > listing.price + incentive,
             "cannot bid below the latest bidding price"
         );
 
@@ -171,10 +176,6 @@ contract NftSaleable is ERC721URIStorage, ReentrancyGuard {
         bids[listingId][msg.sender] += msg.value;
 
         highestBidder[listingId] = msg.sender; // 최고 입찰자 기록
-
-        // 물품 가액 * 1.01
-        uint256 incentive = listing.price / minAuctionIncrement; // 최소 입찰 추가 금액
-        listing.price = listing.price + incentive;
 
         emit BidCreated(listingId, msg.sender, newBid);
     }

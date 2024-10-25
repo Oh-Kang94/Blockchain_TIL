@@ -5,12 +5,13 @@ import 'package:shimmer/shimmer.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/extensions/string.extensions.dart';
+import 'package:web3_auction_example/core/util/logger.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.event.dart';
 import 'package:web3_auction_example/presentation/widgets/common/placeholders.dart';
 
-class MyPageInfoCard extends StatelessWidget {
-  const MyPageInfoCard({
+class MyPageActivatedCard extends StatelessWidget {
+  const MyPageActivatedCard({
     super.key,
     required this.name,
     required this.address,
@@ -22,8 +23,8 @@ class MyPageInfoCard extends StatelessWidget {
   final bool isLoaded;
   final double amount;
 
-  factory MyPageInfoCard.fromWalletEntity(WalletEntity wallet) {
-    return MyPageInfoCard(
+  factory MyPageActivatedCard.fromWalletEntity(WalletEntity wallet) {
+    return MyPageActivatedCard(
       name: wallet.name ?? '별칭을 정해주세요',
       address: wallet.address,
       isLoaded: true,
@@ -31,8 +32,8 @@ class MyPageInfoCard extends StatelessWidget {
     );
   }
 
-  factory MyPageInfoCard.createSkeleton() {
-    return const MyPageInfoCard(
+  factory MyPageActivatedCard.createSkeleton() {
+    return const MyPageActivatedCard(
       name: '',
       address: '',
       isLoaded: false,
@@ -45,6 +46,7 @@ class MyPageInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLoaded) {
+      CLogger.i("Build in CardWidget : $address");
       return Container(
         height: height,
         padding: const EdgeInsets.all(15),
@@ -67,7 +69,7 @@ class MyPageInfoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _NameText(name: name),
-                _AddressText(address),
+                _AddressText(address: address),
                 Text(
                   "Balance : $amount (ETH)",
                 ),
@@ -89,15 +91,25 @@ class MyPageInfoCard extends StatelessWidget {
 
 class _NameText extends HookConsumerWidget with MyPageEvent {
   const _NameText({
-    required this.name,
-  });
+    required String name,
+  }) : _name = name;
 
-  final String name;
+  final String _name;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nameController = useTextEditingController(text: name);
+    final name = useState<String>(_name);
+    final nameController = useTextEditingController(text: _name);
     final isEditing = useState<bool>(false);
+
+    useEffect(
+      () {
+        name.value = _name;
+        nameController.text = _name;
+        return;
+      },
+      [_name],
+    );
     return isEditing.value
         ? Row(
             children: [
@@ -136,55 +148,37 @@ class _NameText extends HookConsumerWidget with MyPageEvent {
         : GestureDetector(
             onTap: () => isEditing.value = true,
             child: Text(
-              "Name : $name",
+              "Name : ${name.value}",
             ),
           );
   }
 }
 
-class _AddressText extends StatefulWidget {
-  const _AddressText(this.address);
+class _AddressText extends HookConsumerWidget {
+  const _AddressText({required this.address});
   final String address;
 
   @override
-  State<_AddressText> createState() => _AddressTextState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isShowAll = useState<bool>(false);
+    final addressD = useState<String>(address);
 
-class _AddressTextState extends State<_AddressText> {
-  bool isShowAll = false;
-  late String addressD;
-  @override
-  void initState() {
-    addressD = widget.address.mask;
-    super.initState();
-  }
+    useEffect(
+      () {
+        addressD.value = address.mask;
+        return null;
+      },
+      [address],
+    );
 
-  @override
-  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        isShowAll = !isShowAll;
-        if (isShowAll) {
-          addressD = widget.address;
-        } else {
-          addressD = widget.address.mask;
-        }
-        setState(() {});
+        isShowAll.value = !isShowAll.value;
+        addressD.value = isShowAll.value ? address : address.mask;
       },
       child: Text(
-        "Address: $addressD",
+        "Address: ${addressD.value}",
       ),
-    );
-  }
-}
-
-class Test extends StatelessWidget {
-  const Test({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("data"),
     );
   }
 }

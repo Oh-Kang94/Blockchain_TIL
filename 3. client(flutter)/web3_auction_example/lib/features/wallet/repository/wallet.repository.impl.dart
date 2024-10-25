@@ -92,6 +92,9 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
   }) async {
     final isar = await _localDatasource.db;
     try {
+      wallet = wallet.copyWith(
+        updatedAt: DateTime.now(),
+      );
       await _updateQuery(isar, wallet);
       return Result.success(wallet);
     } catch (e) {
@@ -126,12 +129,14 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
   }
 
   @override
-  Future<Result<void>> activateWallet({required WalletEntity wallet}) async {
+  Future<Result<WalletEntity>> activateWallet({
+    required WalletEntity activatedWallet,
+  }) async {
     final isar = await _localDatasource.db;
     try {
       await _updateAllDeactivate(isar);
-      await _updateQuery(isar, wallet);
-      return Result.success(null);
+      await _updateQuery(isar, activatedWallet);
+      return Result.success(activatedWallet);
     } catch (e) {
       CLogger.e(e);
       return Result.failure(const DatabaseException());
@@ -188,6 +193,35 @@ class WalletRepositoryImpl with _Private implements WalletRepository {
       return Result.failure(const DatabaseException());
     }
   }
+
+  @override
+  Future<Result<WalletEntity>> deActivateWallet({
+    required WalletEntity activatedWallet,
+  }) async {
+    final isar = await _localDatasource.db;
+    try {
+      await _updateQuery(isar, activatedWallet);
+      return Result.success(activatedWallet);
+    } catch (e) {
+      CLogger.e(e);
+      return Result.failure(const DatabaseException());
+    }
+  }
+
+  @override
+  Future<Result> deleteWallet({
+    required WalletEntity walletEntity,
+  }) async {
+    final isar = await _localDatasource.db;
+    try {
+      await isar.writeTxn(() async {
+        await isar.walletEntitys.delete(walletEntity.privateKey);
+      });
+      return Result.success(null);
+    } catch (e) {
+      return Result.failure(const DatabaseException());
+    }
+  }
 }
 
 mixin _Private {
@@ -207,12 +241,21 @@ mixin _Private {
     });
   }
 
-  Future<void> _updateAllDeactivate(isar) async {
-    await isar.users.where().isActiveEqualTo(true).findAll().then((users) {
-      for (var user in users) {
-        user.isActive = false;
-      }
-      isar.users.putAll(users); // 업데이트한 내용을 저장
+  Future<void> _updateAllDeactivate(Isar isar) async {
+    final users = await isar.walletEntitys
+        .where()
+        .filter()
+        .isActivateEqualTo(true)
+        .findAll();
+
+    if (users.isEmpty) {
+      return;
+    }
+
+    await isar.writeTxn(() async {
+      final updatedUsers =
+          users.map((user) => user.copyWith(isActivate: false)).toList();
+      await isar.walletEntitys.putAll(updatedUsers);
     });
   }
 }

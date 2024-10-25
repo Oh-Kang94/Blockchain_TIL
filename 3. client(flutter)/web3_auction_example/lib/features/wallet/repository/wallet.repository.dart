@@ -34,7 +34,13 @@ abstract class WalletRepository {
   ///
   /// New Method : It's Unique which is wallet is activating
   ///
-  Future<Result<void>> activateWallet({required WalletEntity wallet});
+  Future<Result<WalletEntity>> activateWallet({
+    required WalletEntity activatedWallet,
+  });
+
+  Future<Result<WalletEntity>> deActivateWallet({
+    required WalletEntity activatedWallet,
+  });
 
   ///
   /// Get Balance
@@ -45,4 +51,9 @@ abstract class WalletRepository {
   /// Get Wallet
   ///
   Future<Result<WalletEntity?>> getWalletByPrivateKey(String privateKey);
+
+  ///
+  /// Delete Wallet
+  ///
+  Future<Result> deleteWallet({required WalletEntity walletEntity});
 }

@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/di/modules/locators.dart';
-import 'package:web3_auction_example/core/util/logger.dart';
 
 mixin class AuctionBiddingEvent {
   Future clickBidding(

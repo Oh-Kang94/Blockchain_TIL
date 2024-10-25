@@ -16,8 +16,8 @@ final class SignInUseCase extends BaseUseCase<SignInDto, Result<WalletEntity>> {
     final result = await _repository.getWalletByPrivateKey(request.privateKey);
     final wallet = result.getOrThrow();
     if (wallet != null) {
-      await _repository.updateUserInfo(
-        wallet: wallet.copyWith(isActivate: true),
+      await _repository.activateWallet(
+        activatedWallet: wallet.copyWith(isActivate: true),
       );
       return Result.success(wallet);
     }

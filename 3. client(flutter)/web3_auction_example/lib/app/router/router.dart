@@ -44,7 +44,9 @@ GoRouter router(RouterRef ref) {
       }
 
       final isLoggingIn = state.uri.path == const SignInRoute().location;
-      if (isLoggingIn) return auth ? const MainRoute().location : null;
+      if (isLoggingIn) {
+        return auth ? const MainRoute().location : null;
+      }
 
       return auth ? null : const SplashRoute().location;
     },

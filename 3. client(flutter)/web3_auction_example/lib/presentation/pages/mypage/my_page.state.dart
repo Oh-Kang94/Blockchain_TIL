@@ -8,8 +8,20 @@ mixin class MyPageState {
   ///
   /// Wallet List
   ///
-  AsyncValue<List<WalletEntity>> walletListAsync(WidgetRef ref) =>
-      ref.watch(walletListProvider);
+  AsyncValue<List<WalletEntity>> walletListAsync(WidgetRef ref) {
+    // Get WalletList
+    final walletListAsync = ref.watch(walletListProvider);
+
+    // Mock Loading;
+    // return const AsyncLoading();
+
+    // Filtered DeActivated Wallet
+    return walletListAsync.whenData((walletList) {
+      return walletList.where((wallet) => wallet.isActivate == false).toList();
+      // Mock List Empty
+      // return [];
+    });
+  }
 
   ///
   /// Activate Wallet

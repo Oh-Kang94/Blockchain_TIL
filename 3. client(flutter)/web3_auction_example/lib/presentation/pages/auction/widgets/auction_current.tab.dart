@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/router/routes.dart';
@@ -36,12 +37,12 @@ class AuctionCurrentTabView extends HookConsumerWidget with AuctionState {
                       children: [
                         const Text("해당하는 NFT가 없습니다."),
                         Space.defaultColumn(),
-                        ElevatedButton(
+                        CupertinoButton(
                           onPressed: () async =>
                               await ref.refresh(nftListAuctionProvider),
                           child: Text(
                             "Refresh",
-                            style: AppTextStyle.alert1,
+                            style: AppTextStyle.headline1,
                           ),
                         ),
                       ],
@@ -79,12 +80,12 @@ class AuctionCurrentTabView extends HookConsumerWidget with AuctionState {
                   Text(
                     error.toString(),
                   ),
-                  ElevatedButton(
+                  CupertinoButton(
                     onPressed: () async =>
                         await ref.refresh(nftListAuctionProvider),
                     child: Text(
                       "Refresh",
-                      style: AppTextStyle.alert1,
+                      style: AppTextStyle.headline1,
                     ),
                   ),
                 ],

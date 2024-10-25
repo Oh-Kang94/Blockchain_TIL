@@ -22,5 +22,9 @@ class MainBottomNavigation extends _$MainBottomNavigation {
     return MainNavigationTab.home;
   }
 
+  void reset() {
+    state = MainNavigationTab.home;
+  }
+
   set tab(MainNavigationTab value) => state = value;
 }

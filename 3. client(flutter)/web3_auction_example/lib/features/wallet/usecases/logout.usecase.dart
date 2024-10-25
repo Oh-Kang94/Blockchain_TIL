@@ -13,9 +13,10 @@ class LogoutUsecase extends BaseNoParamUseCase<Result<void>> {
   @override
   FutureOr<Result<void>> call() async {
     final wallet = (await _repository.getActivateWallet()).getOrThrow();
-    final result = await _repository.updateUserInfo(
-      wallet: wallet.copyWith(isActivate: false),
+    final result = await _repository.deActivateWallet(
+      activatedWallet: wallet.copyWith(isActivate: false),
     );
+    
     return result.fold(
       onSuccess: (value) => Result.success(null),
       onFailure: (e) => Result.failure(const DatabaseException()),

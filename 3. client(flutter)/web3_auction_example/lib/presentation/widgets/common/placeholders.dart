@@ -11,9 +11,9 @@ class BannerPlaceholder extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: height,
-      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(15.0),
         color: Colors.white,
       ),
     );

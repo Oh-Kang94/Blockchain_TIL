@@ -12,6 +12,7 @@ import 'package:web3_auction_example/features/nft/usecases/get_own_nft_list.usec
 import 'package:web3_auction_example/features/nft/usecases/mint_nft.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/activate_wallet.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/auth.usecase.dart';
+import 'package:web3_auction_example/features/wallet/usecases/delete_wallet.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/get_wallet_list.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/logout.usecase.dart';
 import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
@@ -51,3 +52,4 @@ final activateWalletUseCase = locator<ActivateWalletUseCase>();
 final logOutUseCase = locator<LogoutUsecase>();
 final mintNftUseCase = locator<MintNftUsecase>();
 final updateWalletUseCase = locator<UpdateWalletUsecase>();
+final deleteWalletUseCase = locator<DeleteWalletUsecase>();

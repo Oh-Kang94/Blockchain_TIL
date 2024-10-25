@@ -66,7 +66,25 @@ class Auth extends _$Auth {
   }
 
   Future<bool> updateActivateWallet({required WalletEntity newWallet}) async {
-    final result = await updateWalletUseCase.call(newWallet);
+    final result = await activateWalletUseCase.call(newWallet);
+    return result.fold(
+      onSuccess: (value) {
+        update(
+          (p0) {
+            return result.fold(
+              onSuccess: (value) => AuthState.success(wallet: value),
+              onFailure: (e) => AuthState.fail(),
+            );
+          },
+        );
+        return true;
+      },
+      onFailure: (e) => false,
+    );
+  }
+
+  Future<bool> signInMyPage({required WalletEntity newWallet}) async {
+    final result = await activateWalletUseCase.call(newWallet);
     return result.fold(
       onSuccess: (value) {
         update(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
@@ -27,12 +28,11 @@ class NftSection extends ConsumerWidget with HomeState {
                 children: [
                   const Text("해당하는 NFT가 없습니다."),
                   Space.defaultColumn(),
-                  ElevatedButton(
-                    onPressed: () async =>
-                        await ref.refresh(nftListProvider),
+                  CupertinoButton(
+                    onPressed: () async => await ref.refresh(nftListProvider),
                     child: Text(
                       "Refresh",
-                      style: AppTextStyle.alert1,
+                      style: AppTextStyle.headline1,
                     ),
                   ),
                 ],
@@ -67,11 +67,11 @@ class NftSection extends ConsumerWidget with HomeState {
             Text(
               error.toString(),
             ),
-            ElevatedButton(
+            CupertinoButton(
               onPressed: () async => await ref.refresh(nftListProvider),
               child: Text(
                 "Refresh",
-                style: AppTextStyle.alert1,
+                style: AppTextStyle.headline1,
               ),
             ),
           ],

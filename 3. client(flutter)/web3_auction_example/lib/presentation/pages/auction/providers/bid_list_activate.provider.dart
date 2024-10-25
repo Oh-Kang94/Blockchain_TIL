@@ -18,4 +18,6 @@ class BidListActivate extends _$BidListActivate {
       onFailure: (e) => throw e,
     );
   }
+
+  // TODO : Need To Impl update from Node for updated price
 }

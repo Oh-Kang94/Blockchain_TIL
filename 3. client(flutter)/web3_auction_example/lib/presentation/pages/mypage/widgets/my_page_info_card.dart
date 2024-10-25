@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:web3_auction_example/app/themes/app_color.dart';
 import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/core/extensions/string.extensions.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
+import 'package:web3_auction_example/presentation/pages/mypage/my_page.event.dart';
 import 'package:web3_auction_example/presentation/widgets/common/placeholders.dart';
 
 class MyPageInfoCard extends StatelessWidget {
@@ -63,9 +66,7 @@ class MyPageInfoCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Name : $name",
-                ),
+                _NameText(name: name),
                 _AddressText(address),
                 Text(
                   "Balance : $amount (ETH)",
@@ -83,6 +84,61 @@ class MyPageInfoCard extends StatelessWidget {
         height: height,
       ),
     );
+  }
+}
+
+class _NameText extends HookConsumerWidget with MyPageEvent {
+  const _NameText({
+    required this.name,
+  });
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nameController = useTextEditingController(text: name);
+    final isEditing = useState<bool>(false);
+    return isEditing.value
+        ? Row(
+            children: [
+              Text(
+                "Name : ",
+                style: AppTextStyle.body1,
+              ),
+              SizedBox(
+                width: 200,
+                child: TextField(
+                  style: AppTextStyle.body1.copyWith(color: AppColor.of.gray),
+                  controller: nameController,
+                  decoration: const InputDecoration.collapsed(hintText: "   "),
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                width: 100,
+                height: 20,
+                child: MaterialButton(
+                  onPressed: () => clickDoneNameChanged(
+                    ref,
+                    isEditing: isEditing,
+                    nameController: nameController,
+                  ),
+                  child: Text(
+                    "Done!",
+                    style: AppTextStyle.body1.copyWith(
+                      color: AppColor.of.confirm,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : GestureDetector(
+            onTap: () => isEditing.value = true,
+            child: Text(
+              "Name : $name",
+            ),
+          );
   }
 }
 

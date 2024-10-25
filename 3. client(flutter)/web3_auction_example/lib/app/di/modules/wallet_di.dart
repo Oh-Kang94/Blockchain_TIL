@@ -13,6 +13,7 @@ import 'package:web3_auction_example/features/wallet/usecases/logout.usecase.dar
 import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.impl.dart';
+import 'package:web3_auction_example/features/wallet/usecases/update_wallet.usecase.dart';
 
 final class WalletDI extends IFeatureDI {
   @override
@@ -51,6 +52,9 @@ final class WalletDI extends IFeatureDI {
         () => ActivateWalletUseCase(walletRepository),
       )
       ..registerFactory<LogoutUsecase>(() => LogoutUsecase(walletRepository))
+      ..registerFactory<UpdateWalletUsecase>(
+        () => UpdateWalletUsecase(walletRepository),
+      )
       ..registerFactory<GetWalletListUseCase>(
         () => GetWalletListUseCase(walletRepository),
       );

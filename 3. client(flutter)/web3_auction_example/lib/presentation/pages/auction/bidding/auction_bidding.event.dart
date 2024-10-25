@@ -14,6 +14,5 @@ mixin class AuctionBiddingEvent {
     // #1 : call UseCase,
     final result = await bidAuctionUsecase
         .call((biddingPrice: biddingPrice, listingId: listingId));
-    CLogger.i("event : ${result.toString()}");
   }
 }

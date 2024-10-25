@@ -18,6 +18,7 @@ import 'package:web3_auction_example/features/wallet/usecases/signin.usecase.dar
 import 'package:web3_auction_example/features/wallet/repository/wallet.repository.dart';
 import 'package:web3_auction_example/features/nft/repository/nft.repository.dart';
 import 'package:web3_auction_example/features/nft/usecases/get_nft_list.usecase.dart';
+import 'package:web3_auction_example/features/wallet/usecases/update_wallet.usecase.dart';
 
 // DataSource
 final web3DataSource = locator<Web3Datasource>();
@@ -49,3 +50,4 @@ final getWalletListUseCase = locator<GetWalletListUseCase>();
 final activateWalletUseCase = locator<ActivateWalletUseCase>();
 final logOutUseCase = locator<LogoutUsecase>();
 final mintNftUseCase = locator<MintNftUsecase>();
+final updateWalletUseCase = locator<UpdateWalletUsecase>();

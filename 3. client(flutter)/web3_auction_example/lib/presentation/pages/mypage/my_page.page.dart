@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web3_auction_example/app/themes/app_text_style.dart';
 import 'package:web3_auction_example/presentation/pages/base/base_page.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.event.dart';
 import 'package:web3_auction_example/presentation/pages/mypage/my_page.state.dart';
@@ -11,7 +12,7 @@ class MyPage extends BasePage with MyPageEvent, MyPageState {
 
   @override
   void onInit(WidgetRef ref) {
-    Future.microtask(() => ref.read(authProvider.notifier).updateWallet());
+    Future.microtask(() => ref.read(authProvider.notifier).refreshWallet());
     super.onInit(ref);
   }
 
@@ -20,6 +21,7 @@ class MyPage extends BasePage with MyPageEvent, MyPageState {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _walletCard(ref),
         ],

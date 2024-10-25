@@ -53,7 +53,7 @@ class Auth extends _$Auth {
     );
   }
 
-  updateWallet() async {
+  refreshWallet() async {
     final result = await authUseCase.call();
     update(
       (p0) {
@@ -62,6 +62,24 @@ class Auth extends _$Auth {
           onFailure: (e) => AuthState.fail(),
         );
       },
+    );
+  }
+
+  Future<bool> updateActivateWallet({required WalletEntity newWallet}) async {
+    final result = await updateWalletUseCase.call(newWallet);
+    return result.fold(
+      onSuccess: (value) {
+        update(
+          (p0) {
+            return result.fold(
+              onSuccess: (value) => AuthState.success(wallet: value),
+              onFailure: (e) => AuthState.fail(),
+            );
+          },
+        );
+        return true;
+      },
+      onFailure: (e) => false,
     );
   }
 }

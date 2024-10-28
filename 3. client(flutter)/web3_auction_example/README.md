@@ -77,4 +77,20 @@ If you run via localhost environment, Please, Do Run Node(localhost) first.
 
 Please, kindly check first Section [How to Run (Node(Localhost))](<#1.-How-to-Run-(Node(Localhost))>)
 
-Unfortunately, Until wrote this Readme.me, This project is not supported TestNet
+Also, If you want to run in testnet Environment, You should deploy in your test code
+And, you should write your env in `.env.test`
+
+Example )
+
+```.env.test
+    apiKey = 'YOUR_API_KEY'
+
+    rpcUrl = 'YOUR_DEPLOYED_RPC_URL'
+
+    chainId = 'YOUR_DEPLOYED_CHAIN_ID'
+
+    contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS_FROM_YOUR_TESTNET'
+
+    db_path = testnet
+
+```

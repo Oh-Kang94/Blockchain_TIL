@@ -35,6 +35,7 @@
 		241B0A79280AA4F0F044C039 /* Pods-Runner.profile-testnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-testnet.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-testnet.xcconfig"; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		60718CA0C0CEC9E9B92FC646 /* Pods-Runner.profile-sepolia.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-sepolia.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-sepolia.xcconfig"; sourceTree = "<group>"; };
 		635151D56C55EEF7A70565AC /* Pods-Runner.profile-localhost.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-localhost.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-localhost.xcconfig"; sourceTree = "<group>"; };
 		70873BD4A89547DB934933EC /* Pods-Runner.release-localhost.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-localhost.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-localhost.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -50,6 +51,8 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98C12174837F1EAC807471A2 /* Pods-Runner.release-testnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-testnet.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-testnet.xcconfig"; sourceTree = "<group>"; };
 		B83D409BAEB4C4057B7CBFBE /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE14B0FA389088453A120495 /* Pods-Runner.debug-sepolia.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-sepolia.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-sepolia.xcconfig"; sourceTree = "<group>"; };
+		D94B99681DEB89BC07E45608 /* Pods-Runner.release-sepolia.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-sepolia.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-sepolia.xcconfig"; sourceTree = "<group>"; };
 		FC8767964B27F65D99EA3F99 /* Pods-Runner.debug-testnet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-testnet.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-testnet.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +139,9 @@
 				98C12174837F1EAC807471A2 /* Pods-Runner.release-testnet.xcconfig */,
 				635151D56C55EEF7A70565AC /* Pods-Runner.profile-localhost.xcconfig */,
 				241B0A79280AA4F0F044C039 /* Pods-Runner.profile-testnet.xcconfig */,
+				CE14B0FA389088453A120495 /* Pods-Runner.debug-sepolia.xcconfig */,
+				D94B99681DEB89BC07E45608 /* Pods-Runner.release-sepolia.xcconfig */,
+				60718CA0C0CEC9E9B92FC646 /* Pods-Runner.profile-sepolia.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -551,7 +557,7 @@
 			};
 			name = "Release-localhost";
 		};
-		DCEA6DDE2CBD11B5000588E5 /* Debug-testnet */ = {
+		DCEA6DDE2CBD11B5000588E5 /* Debug-sepolia */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -606,9 +612,9 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug-testnet";
+			name = "Debug-sepolia";
 		};
-		DCEA6DDF2CBD11B5000588E5 /* Debug-testnet */ = {
+		DCEA6DDF2CBD11B5000588E5 /* Debug-sepolia */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -617,22 +623,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLUTTER_TARGET = lib/app/entry/main_testnet.dart;
+				FLUTTER_TARGET = lib/app/entry/main_sepolia.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.sepolia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug-testnet";
+			name = "Debug-sepolia";
 		};
-		DCEA6DE12CBD11C7000588E5 /* Release-testnet */ = {
+		DCEA6DE12CBD11C7000588E5 /* Release-sepolia */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -684,9 +690,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-testnet";
+			name = "Release-sepolia";
 		};
-		DCEA6DE22CBD11C7000588E5 /* Release-testnet */ = {
+		DCEA6DE22CBD11C7000588E5 /* Release-sepolia */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -695,21 +701,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLUTTER_TARGET = lib/app/entry/main_testnet.dart;
+				FLUTTER_TARGET = lib/app/entry/main_sepolia.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.sepolia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-testnet";
+			name = "Release-sepolia";
 		};
-		DCEA6DE42CBD11D3000588E5 /* Profile-testnet */ = {
+		DCEA6DE42CBD11D3000588E5 /* Profile-sepolia */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -759,9 +765,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Profile-testnet";
+			name = "Profile-sepolia";
 		};
-		DCEA6DE52CBD11D3000588E5 /* Profile-testnet */ = {
+		DCEA6DE52CBD11D3000588E5 /* Profile-sepolia */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -770,19 +776,19 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLUTTER_TARGET = lib/app/entry/main_testnet.dart;
+				FLUTTER_TARGET = lib/app/entry/main_sepolia.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.testnet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.web3AuctionExample.sepolia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Profile-testnet";
+			name = "Profile-sepolia";
 		};
 /* End XCBuildConfiguration section */
 
@@ -791,11 +797,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147031CF9000F007C117D /* Debug-localhost */,
-				DCEA6DDE2CBD11B5000588E5 /* Debug-testnet */,
+				DCEA6DDE2CBD11B5000588E5 /* Debug-sepolia */,
 				97C147041CF9000F007C117D /* Release-localhost */,
-				DCEA6DE12CBD11C7000588E5 /* Release-testnet */,
+				DCEA6DE12CBD11C7000588E5 /* Release-sepolia */,
 				249021D3217E4FDB00AE95B9 /* Profile-localhost */,
-				DCEA6DE42CBD11D3000588E5 /* Profile-testnet */,
+				DCEA6DE42CBD11D3000588E5 /* Profile-sepolia */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-localhost";
@@ -804,11 +810,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97C147061CF9000F007C117D /* Debug-localhost */,
-				DCEA6DDF2CBD11B5000588E5 /* Debug-testnet */,
+				DCEA6DDF2CBD11B5000588E5 /* Debug-sepolia */,
 				97C147071CF9000F007C117D /* Release-localhost */,
-				DCEA6DE22CBD11C7000588E5 /* Release-testnet */,
+				DCEA6DE22CBD11C7000588E5 /* Release-sepolia */,
 				249021D4217E4FDB00AE95B9 /* Profile-localhost */,
-				DCEA6DE52CBD11D3000588E5 /* Profile-testnet */,
+				DCEA6DE52CBD11D3000588E5 /* Profile-sepolia */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-localhost";

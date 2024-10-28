@@ -17,15 +17,15 @@
             ]
         },
         {
-            "name": "testnet (debug)",
+            "name": "sepolia (debug)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "args": [
                 "--flavor",
-                "testnet",
+                "sepolia",
                 "-t",
-                "lib/app/entry/main_testnet.dart"
+                "lib/app/entry/main_sepolia.dart"
             ]
         }
     ]

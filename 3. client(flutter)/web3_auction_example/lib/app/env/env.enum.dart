@@ -4,7 +4,7 @@ Exception _exception = Exception('Not found in environment variables.');
 
 enum Env {
   localhost(type: "LOCALHOST"),
-  testNet(type: "TESTNET");
+  sepolia(type: "SEPOLIA");
 
   final String type;
 
@@ -14,7 +14,7 @@ enum Env {
 
   String get dotFileName => switch (this) {
         localhost => '.env',
-        testNet => '.env.test',
+        sepolia => '.env.test',
       };
 
   String get apiKey => dotenv.env['apiKey'] ?? (throw _exception);

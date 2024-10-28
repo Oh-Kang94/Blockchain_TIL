@@ -4,6 +4,8 @@
   "main": "index.js",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/dotenv": "^8.2.3",
+    "dotenv": "^16.4.5",
     "mocha": "^10.7.3"
   },
   "scripts": {

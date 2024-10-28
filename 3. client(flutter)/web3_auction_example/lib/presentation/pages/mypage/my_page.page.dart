@@ -45,7 +45,6 @@ class MyPage extends BasePage with MyPageEvent, MyPageState {
   Widget _walletCard(ref) {
     return activatedWalletAsync(ref).when(
       data: (data) {
-        CLogger.i("BuildWalletCard : $data");
         return MyPageActivatedCard.fromWalletEntity(data);
       },
       error: (error, stackTrace) {

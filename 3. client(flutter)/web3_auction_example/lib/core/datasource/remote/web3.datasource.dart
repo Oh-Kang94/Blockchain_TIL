@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:web3_auction_example/app/env/env.enum.dart';
 import 'package:web3_auction_example/app/env/flavor.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -16,7 +15,7 @@ class Web3Datasource {
 
   // 배포된 계약의 주소를 설정
   final EthereumAddress _contractAddress = EthereumAddress.fromHex(
-    Env.localhost.contract,
+    Flavor.env.contract,
   );
 
   EthPrivateKey privateKey = EthPrivateKey.createRandom(Random.secure());

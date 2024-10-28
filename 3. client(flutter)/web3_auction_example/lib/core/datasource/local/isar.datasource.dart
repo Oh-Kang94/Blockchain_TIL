@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:web3_auction_example/app/env/env.enum.dart';
+import 'package:web3_auction_example/app/env/flavor.dart';
 import 'package:web3_auction_example/features/wallet/entities/wallet.entity.dart';
 
 /// ### `Singleton Class`
@@ -27,12 +31,21 @@ class IsarDataSource {
   // 데이터베이스를 초기화하는 함수
   Future<Isar> _initDb() async {
     final dir = await getApplicationDocumentsDirectory(); // 앱의 로컬 디렉터리 경로를 가져옴
+    final dbPath = '${dir.path}/${Flavor.env.pathName}';
+
+    // 경로가 존재하지 않으면 생성
+    final dbDirectory = Directory(dbPath);
+    if (!dbDirectory.existsSync()) {
+      dbDirectory.createSync(recursive: true);
+    }
+    // https://drive.google.com/uc?id=1yNP3hlK0uqweLWgXguHYFhx_82lhcFDq
     final isar = await Isar.open(
       // Isar 데이터베이스를 스키마와 함께 오픈
       [
         WalletEntitySchema,
       ],
-      directory: dir.path, // 데이터베이스 파일이 저장될 디렉터리 경로
+      directory: dbPath, // 데이터베이스 파일이 저장될 디렉터리 경로
+      name: Flavor.env.pathName, // 데이터베이스 파일이 저장될 디렉터리 경로
     );
 
     // await _initializeCallbackSetting(isar); // 초기 설정 값이 없으면 기본 값으로 세팅

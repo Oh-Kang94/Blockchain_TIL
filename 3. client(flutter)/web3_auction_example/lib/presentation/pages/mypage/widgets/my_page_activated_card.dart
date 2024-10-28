@@ -46,7 +46,6 @@ class MyPageActivatedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLoaded) {
-      CLogger.i("Build in CardWidget : $address");
       return Container(
         height: height,
         padding: const EdgeInsets.all(15),

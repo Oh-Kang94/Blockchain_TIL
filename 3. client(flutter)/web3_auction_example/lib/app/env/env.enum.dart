@@ -25,4 +25,6 @@ enum Env {
       int.tryParse(dotenv.env['chainId'] ?? '') ?? (throw _exception);
 
   String get contract => dotenv.env['contractAddress'] ?? (throw _exception);
+
+  String get pathName => dotenv.env['db_path'] ?? (throw _exception);
 }
